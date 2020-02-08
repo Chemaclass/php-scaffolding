@@ -17,8 +17,6 @@
     ],
     "require": {
         "ext-json": "*",
-        "ext-mbstring": "*",
-        "ext-xdebug": "*",
         "php": "^7.4"
     },
     "require-dev": {
