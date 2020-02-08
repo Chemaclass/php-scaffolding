@@ -19,7 +19,13 @@ This is is a scaffolding for PHP projects using Docker. In this repository you w
 
 ## Installation
 
-Feel free to clone this repository.
+1) Clone (or fork) this repository
+2) Modify the [dockerfile](devops/dev/php.dockerfile) in order to adjust the `WORKDIR` to your needs
+   * Update the [docker-compose.yml](docker-compose.yml) file (`container_name` and `volumes` values)
+3) Build the image using `docker-compose build`
+4) Start the image using `docker-compose up`
+5) Adapt the `bin/*` files to point to the right `container_name` and connect to the right `WORKDIR`
+6) Install the dependencies `bin/composer install`
 
 ## Contributions
 

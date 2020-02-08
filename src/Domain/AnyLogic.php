@@ -12,7 +12,7 @@ final class AnyLogic
     {
         return array_reduce(
             $numbers,
-            fn (int $carry, int $current) => $carry + $current,
+            fn (int $carry, int $current): int => $carry + $current,
             $initial = 0
         );
     }
