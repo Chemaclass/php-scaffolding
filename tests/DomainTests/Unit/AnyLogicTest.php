@@ -19,10 +19,10 @@ final class AnyLogicTest extends TestCase
     /** @test */
     public function sum(): void
     {
-        self::assertEquals(0, $this->logic->sum());
-        self::assertEquals(1, $this->logic->sum(1));
-        self::assertEquals(3, $this->logic->sum(1, 2));
-        self::assertEquals(6, $this->logic->sum(1, 2, 3));
-        self::assertEquals(10, $this->logic->sum(1, 2, 3, 4));
+        static::assertSame(0, $this->logic->sum());
+        static::assertSame(1, $this->logic->sum(1));
+        static::assertSame(3, $this->logic->sum(1, 2));
+        static::assertSame(6, $this->logic->sum(1, 2, 3));
+        static::assertSame(10, $this->logic->sum(1, 2, 3, 4));
     }
 }
