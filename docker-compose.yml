@@ -1,0 +1,8 @@
+php_scaffolding:
+  build: .
+  dockerfile: devops/dev/php.dockerfile
+  container_name: php_scaffolding
+  hostname: php
+  volumes:
+    - .:/srv/php-scaffolding:delegated
+    - ~/.ssh:/home/dev/.ssh
