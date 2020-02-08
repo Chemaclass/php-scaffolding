@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+args=""
+for arg in "$@"; do
+  args="$args $arg"
+done
+
+if [[ -f /.dockerenv ]]; then
+    cd /srv/php-scaffolding && vendor/bin/phpunit ${args} --coverage-html coverage;
+else
+    docker exec -ti -u dev php_scaffolding sh \
+        -c "cd /srv/php-scaffolding && vendor/bin/phpunit $args --coverage-html coverage"
+fi
