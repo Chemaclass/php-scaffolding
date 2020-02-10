@@ -14,7 +14,7 @@ This is is a scaffolding for PHP projects using Docker. In this repository you w
 * some bash files (as helpers) to execute some commands inside the docker container such: 
   * `bin/bash` -> access into the bash
   * `bin/composer` -> run composer
-  * `bin/csfix` -> run the php style fixer 
+  * `bin/csfix` -> run the code style fixer (`.php_cs`)
   * `bin/tests` -> run phpunit
 
 ## Installation

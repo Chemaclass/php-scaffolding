@@ -6,7 +6,8 @@
     "license": "MIT",
     "keywords": [
         "php",
-        "scaffolding"
+        "scaffolding",
+        "docker"
     ],
     "authors": [
         {
