@@ -6,26 +6,25 @@
 
 This is is a scaffolding for PHP projects using Docker. In this repository you will find:
 
-* latest `php` (currently 7.4) 
-* latest `phpunit`
-* php style checker 
-* basic dockerfile ready to use from your `docker-compose.yml`
-* basic structure to start coding in `src` and `tests`
-* some bash files (as helpers) to execute some commands inside the docker container such: 
+* Latest `PHP` (currently 7.4)
+* Latest `PHPUnit`
+* PHP style checker
+* Basic dockerfile ready to use from your `docker-compose.yml`
+* Basic structure to start coding in `src` and `tests`
+* Some bash files (as helpers) to execute commands inside the docker container such:
   * `bin/bash` -> access into the bash
   * `bin/composer` -> run composer
   * `bin/csfix` -> run the code style fixer (`.php_cs`)
-  * `bin/tests` -> run phpunit
+  * `bin/tests` -> run PHPUnit
 
 ## Installation
 
-1) Clone (or fork) this repository
-2) Modify the [dockerfile](devops/dev/php.dockerfile) in order to adjust the `WORKDIR` to your needs
+1. Clone (or fork) this repository
+2. Modify the [dockerfile](devops/dev/php.dockerfile) in order to adjust the `WORKDIR` to your needs
    * Update the [docker-compose.yml](docker-compose.yml) file (`container_name` and `volumes` values)
-3) Build the image using `docker-compose build`
-4) Start the image using `docker-compose up`
-5) Adapt the `bin/*` files to point to the right `container_name` and connect to the right `WORKDIR`
-6) Install the dependencies `bin/composer install`
+3. Build & start the image using `docker-compose up`
+4. Adapt the `bin/*` files to point to the right `container_name` and connect to the right `WORKDIR`
+5. Install the dependencies `bin/composer install`
 
 ## Contributions
 
