@@ -6,16 +6,16 @@
 
 This is is a scaffolding for PHP projects using Docker. In this repository you will find:
 
-* Latest `PHP` (currently 7.4)
+* Latest `PHP` (currently [7.4](https://en.wikipedia.org/wiki/PHP#Release_history))
 * Latest `PHPUnit`
 * PHP style checker
 * Basic dockerfile ready to use from your `docker-compose.yml`
 * Basic structure to start coding in `src` and `tests`
-* Some bash files (as helpers) to execute commands inside the docker container such:
-  * `bin/bash` -> access into the bash
-  * `bin/composer` -> run composer
-  * `bin/csfix` -> run the code style fixer (`.php_cs`)
-  * `bin/tests` -> run PHPUnit
+* Some make tasks to execute commands inside the docker container such:
+  * `make bash` -> access into the bash
+  * `make csfix` -> run the code style fixer (`.php_cs`)
+  * `make composer ARGS="require phpunit/phpunit"` -> run composer
+  * `make tests ARGS="tests/DomainTests/Unit/AnyLogicTest"` -> run PHPUnit
 
 ## Installation
 
