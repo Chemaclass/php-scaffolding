@@ -26,4 +26,13 @@ tests:
 			-c "cd /srv/php-scaffolding && vendor/bin/phpunit $(ARGS) --coverage-html coverage"
 	fi
 
-.PHONY: bash csfix tests
+# make composer ARGS="require phpunit/phpunit"
+composer:
+	@if [[ -f /.dockerenv ]]; then
+		cd /srv/php-scaffolding && composer $(ARGS)
+	else
+		docker exec -ti -u dev php_scaffolding sh \
+			-c "cd /srv/php-scaffolding && composer $(ARGS)"
+	fi
+
+.PHONY: bash csfix tests composer
