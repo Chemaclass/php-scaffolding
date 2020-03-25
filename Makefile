@@ -9,4 +9,12 @@ bash:
 		echo 'You are already inside the docker bash.'
 	fi
 
-.PHONY: bash
+csfix:
+	@if [[ -f /.dockerenv ]]; then
+		cd /srv/php-scaffolding && vendor/bin/php-cs-fixer fix
+	else
+		docker exec -ti -u dev php_scaffolding sh \
+			-c "cd /srv/php-scaffolding && vendor/bin/php-cs-fixer fix"
+	fi
+
+.PHONY: bash csfix
