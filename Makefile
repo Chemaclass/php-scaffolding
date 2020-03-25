@@ -17,4 +17,13 @@ csfix:
 			-c "cd /srv/php-scaffolding && vendor/bin/php-cs-fixer fix"
 	fi
 
-.PHONY: bash csfix
+# make tests ARGS="tests/DomainTests/Unit/AnyLogicTest"
+tests:
+	@if [[ -f /.dockerenv ]]; then
+		cd /srv/php-scaffolding && vendor/bin/phpunit $(ARGS) --coverage-html coverage;
+	else
+		docker exec -ti -u dev php_scaffolding sh \
+			-c "cd /srv/php-scaffolding && vendor/bin/phpunit $(ARGS) --coverage-html coverage"
+	fi
+
+.PHONY: bash csfix tests
