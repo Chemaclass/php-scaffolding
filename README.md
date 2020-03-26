@@ -17,14 +17,20 @@ This is is a scaffolding for PHP projects using Docker. In this repository you w
   * `make composer ARGS="require phpunit/phpunit"` -> run composer
   * `make tests ARGS="tests/DomainTests/Unit/AnyLogicTest"` -> run PHPUnit
 
+## Requirements
+
+* GNU Make 4.3 (for Makefile)
+ [Install for Mac](https://stackoverflow.com/questions/43175529/updating-make-version-4-1-on-mac) | Optional
+
 ## Installation
 
 1. Clone (or fork) this repository
 2. Modify the [dockerfile](devops/dev/php.dockerfile) in order to adjust the `WORKDIR` to your needs
    * Update the [docker-compose.yml](docker-compose.yml) file (`container_name` and `volumes` values)
 3. Build & start the image using `docker-compose up`
-4. Adapt the `bin/*` files to point to the right `container_name` and connect to the right `WORKDIR`
-5. Install the dependencies `bin/composer install`
+4. Install the dependencies
+   1. Go inside the image and run: `composer install`
+   2. or just from your local: `make composer ARGS="install"`
 
 ## Contributions
 
