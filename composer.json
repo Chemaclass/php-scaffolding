@@ -39,6 +39,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "csfix": "vendor/bin/php-cs-fixer fix"
+        "csfix": "vendor/bin/php-cs-fixer fix",
+        "psalm": "vendor/bin/psalm"
     }
 }
