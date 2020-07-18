@@ -6,6 +6,7 @@ namespace Domain;
 
 use function array_reduce;
 
+/** @psalm-immutable */
 final class AnyLogic
 {
     public function sum(int ...$numbers): int
