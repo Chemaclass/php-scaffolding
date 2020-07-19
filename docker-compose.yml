@@ -1,6 +1,6 @@
 php_scaffolding:
   build: .
-  dockerfile: devops/dev/php.dockerfile
+  dockerfile: devops/dev/php74.dockerfile
   container_name: php_scaffolding
   hostname: php
   volumes:
