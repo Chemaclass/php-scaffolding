@@ -7,7 +7,9 @@
     "keywords": [
         "php",
         "scaffolding",
-        "docker"
+        "docker",
+        "phpunit",
+        "github"
     ],
     "authors": [
         {
@@ -22,9 +24,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
-        "symfony/var-dumper": "^5.0.4",
+        "symfony/var-dumper": "^5.0",
         "phpunit/phpunit": "^9.2",
-        "infection/infection": "^0.15.3",
+        "infection/infection": "^0.16",
         "vimeo/psalm": "^3.12"
     },
     "autoload": {
@@ -40,6 +42,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "csfix": "vendor/bin/php-cs-fixer fix",
-        "psalm": "vendor/bin/psalm"
+        "psalm": "vendor/bin/psalm",
+        "infect": "vendor/bin/infection"
     }
 }
