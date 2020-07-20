@@ -31,8 +31,10 @@ composer install
 ## Composer Scripts
 
 ```bash
-composer test  # run PHPUnit
-composer csfix # run the code style fixer (`.php_cs`)
+composer test   # run PHPUnit
+composer infect # run mutation testing
+composer csfix  # run the code style fixer (`.php_cs`)
+composer psalm  # run Psalm coverage
 ```
 
 ## Contributions
