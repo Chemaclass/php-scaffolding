@@ -40,9 +40,18 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-        "csfix": "vendor/bin/php-cs-fixer fix",
-        "psalm": "vendor/bin/psalm",
-        "infect": "vendor/bin/infection"
+        "test": [
+            "@test-quality",
+            "@test-unit"
+        ],
+        "test-quality": [
+            "@psalm",
+            "@csfix",
+            "@infect"
+        ],
+        "psalm": "./vendor/bin/psalm",
+        "csfix": "./vendor/bin/php-cs-fixer fix",
+        "infect": "./vendor/bin/infection",
+        "test-unit": "./vendor/bin/phpunit"
     }
 }
