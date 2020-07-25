@@ -22,19 +22,26 @@ Clone (or fork) this repository
       * Update the [docker-compose.yml](docker-compose.yml) file (`container_name` and `volumes` values)
    2. Install the dependencies by yourself or build & start the image
 
+To set up the container and install the composer dependencies:
+
 ```bash
-docker-compose up
+docker-compose up -d
+docker-compose exec php_scaffolding composer install
+```
+
+If you want to go inside the docker container:
+
+```bash
 docker exec -ti -u dev php_scaffolding bash
-composer install
 ```
 
 ## Composer Scripts
 
 ```bash
 composer test   # run PHPUnit
-composer infect # run mutation testing
-composer csfix  # run the code style fixer (`.php_cs`)
+composer csfix  # run Code Style Fixer (`.php_cs`)
 composer psalm  # run Psalm coverage
+composer infect # run Mutation Testing
 ```
 
 ## Contributions
