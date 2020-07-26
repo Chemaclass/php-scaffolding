@@ -47,6 +47,20 @@ composer infect # run Mutation Testing
 composer csfix  # run the code fixer (`.php_cs`)
 ```
 
+## Git hooks
+
+There are some git hooks
+
+* `./tools/scripts/git-hooks/pre-commit.sh`
+* `./tools/scripts/git-hooks/pre-push.sh`
+
+In order to create a soft-symlink:
+
+```bash
+ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
+ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
+```
+
 ## Contributions
 
 Feel free to open any PR with your suggestions or improvements.

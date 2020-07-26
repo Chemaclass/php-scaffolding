@@ -40,7 +40,7 @@
         }
     },
     "scripts": {
-        "test": [
+        "test-all": [
             "@test-quality",
             "@test-unit"
         ],
