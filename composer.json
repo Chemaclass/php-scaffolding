@@ -1,8 +1,8 @@
 {
-    "name": "chemaclass/php-scaffolding",
+    "name": "Chemaclass/PhpScaffolding",
     "description": "A basic PHP scaffolding with Docker",
     "type": "library",
-    "homepage": "https://github.com/Chemaclass/php-scaffolding",
+    "homepage": "https://github.com/Chemaclass/PhpScaffolding",
     "license": "MIT",
     "keywords": [
         "php",
@@ -20,7 +20,8 @@
     ],
     "require": {
         "ext-json": "*",
-        "php": "^7.4"
+        "php": "^7.4",
+        "ext-readline": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
