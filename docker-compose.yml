@@ -5,4 +5,3 @@ php_scaffolding:
   hostname: php
   volumes:
     - .:/srv/php-scaffolding:delegated
-    - ~/.ssh:/home/dev/.ssh
