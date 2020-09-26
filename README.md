@@ -11,26 +11,31 @@ This is a scaffolding for PHP projects using Docker. In this repository you will
 * Basic dockerfile ready to use from your `docker-compose.yml`
 * Basic structure to start coding in `src` and `tests`
 
-## Installation
+## Custom Installation
 
-Clone (or fork) this repository
-1. Install the dependencies by yourself
-2. or modify and use the provided docker container
-   1. Modify the [dockerfile](devops/dev/php.dockerfile) in order to adjust the `WORKDIR` to your needs
-      * Update the [docker-compose.yml](docker-compose.yml) file (`container_name` and `volumes` values)
-   2. Install the dependencies by yourself or build & start the image
+#### Clone this repository
+> git clone https://github.com/Chemaclass/PhpScaffolding YourProjectName
+
+#### Setup the new project
+
+Using the installer script `php create-new-project.php`:
+> It will  replace the Project & Container names (PhpScaffolding | php_scaffolding)
+> to customized values (by default using the name directory where you did the fork)
+> For example: YourProjectName | your_project_name
+
+### Installing dependencies
 
 To set up the container and install the composer dependencies:
 
 ```bash
 docker-compose up -d
-docker-compose exec php_scaffolding composer install
+docker-compose exec your_project_name composer install
 ```
 
 If you want to go inside the docker container:
 
 ```bash
-docker exec -ti -u dev php_scaffolding bash
+docker exec -ti -u dev your_project_name bash
 ```
 
 ## Composer Scripts
@@ -61,4 +66,11 @@ ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
 
 ## Contributions
 
-Feel free to open any PR with your suggestions or improvements.
+Feel free to open any PR with your ideas, suggestions or improvements.
+
+### Installing it locally
+
+```bash
+docker-compose up -d
+docker-compose exec php_scaffolding composer install
+```
