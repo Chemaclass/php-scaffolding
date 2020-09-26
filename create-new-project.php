@@ -38,11 +38,13 @@ final class Installer
 
     private function askName(string $what, string $newOrOld, string $default): string
     {
-        assert(!empty($default), "Default {$what} name can not be empty!");
+        $this->throwExceptionIf(empty($default), "Default {$what} name can not be empty!");
         $input = $this->input("{$newOrOld} {$what} name [{$default}]");
         $projectName = !empty($input) ? trim($input) : $default;
+        $result = trim($projectName);
+        $this->throwExceptionIf(empty($result), "The new {$what} name can not be empty!");
 
-        return trim($projectName);
+        return $result;
     }
 
     private function fromCamelCaseToSnakeCase(string $str): string
@@ -116,6 +118,13 @@ final class Installer
     private function input(string $prompt): string
     {
         return (string)readline("{$prompt}: ");
+    }
+
+    private function throwExceptionIf(bool $condition, string $message): void
+    {
+        if ($condition) {
+            throw new RuntimeException($message);
+        }
     }
 }
 
