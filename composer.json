@@ -1,25 +1,14 @@
 {
-    "name": "Chemaclass/PhpScaffolding",
+    "name": "chemaclass/php-scaffolding",
     "description": "A basic PHP scaffolding with Docker",
-    "type": "library",
+    "type": "project",
     "homepage": "https://github.com/Chemaclass/PhpScaffolding",
     "license": "MIT",
     "keywords": [
         "php",
-        "scaffolding",
-        "docker",
-        "phpunit",
-        "github"
-    ],
-    "authors": [
-        {
-            "name": "Jose Maria Valera Reales",
-            "email": "chemaclass@outlook.es",
-            "homepage": "http://chemaclass.es/"
-        }
+        "scaffolding"
     ],
     "require": {
-        "ext-json": "*",
         "php": "^7.4",
         "ext-readline": "*"
     },
@@ -37,7 +26,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "DomainTests\\": "tests/DomainTests"
+            "DomainTests\\": "tests"
         }
     },
     "scripts": {
