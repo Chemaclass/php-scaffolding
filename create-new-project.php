@@ -79,13 +79,13 @@ final class Installer
 
     private function removeUnrelatedFiles(string $newProjectName): void
     {
-        $this->removeFileOrDir(".git");
-        $this->removeFileOrDir('CNAME');
-        $this->removeFileOrDir('LICENSE');
+        $this->remove(".git");
+        $this->remove('CNAME');
+        $this->remove('LICENSE.md');
         $this->createFile('README.md', "## {$newProjectName}");
     }
 
-    private function removeFileOrDir(string $path): void
+    private function remove(string $path): void
     {
         if (is_dir($path)) {
             exec("rm -rf {$path}");
