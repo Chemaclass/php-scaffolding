@@ -9,11 +9,11 @@ use function array_reduce;
 /** @psalm-immutable */
 final class AnyLogic
 {
-    public function sum(int ...$numbers): int
+    public static function sum(int ...$numbers): int
     {
         return array_reduce(
             $numbers,
-            fn (int $carry, int $current): int => $carry + $current,
+            static fn (int $carry, int $current): int => $carry + $current,
             $initial = 0
         );
     }
