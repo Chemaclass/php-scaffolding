@@ -4,4 +4,4 @@ php_scaffolding:
   container_name: php_scaffolding
   hostname: php
   volumes:
-    - .:/srv/php-scaffolding:delegated
+    - .:/srv/PhpScaffolding:delegated
