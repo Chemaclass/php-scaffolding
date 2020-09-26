@@ -1,7 +1,12 @@
 <?php declare(strict_types=1);
 
-final class CreateNewProject
+final class Installer
 {
+    private const PROJECT = 'Project';
+    private const CONTAINER = 'Container';
+    private const OLD = 'Old';
+    private const NEW = 'New';
+
     private string $currentScriptName;
 
     public function __construct(string $currentScriptName)
@@ -17,14 +22,14 @@ final class CreateNewProject
             return;
         }
 
-        $oldProjectName = $this->askName('Project', 'Old', 'PhpScaffolding');
-        $oldContainerName = $this->askName('Container', 'Old', 'php_scaffolding');
+        $oldProjectName = $this->askName(self::PROJECT, self::OLD, 'PhpScaffolding');
+        $oldContainerName = $this->askName(self::CONTAINER, self::OLD, 'php_scaffolding');
 
-        $newProjectName = $this->askName('Project', 'New', $currentDir);
-        $newContainerName = $this->askName('Container', 'New', $this->fromCamelCaseToSnakeCase($currentDir));
+        $newProjectName = $this->askName(self::PROJECT, self::NEW, $currentDir);
+        $newContainerName = $this->askName(self::CONTAINER, self::NEW, $this->fromCamelCaseToSnakeCase($currentDir));
 
-        $this->replaceName('Project', $oldProjectName, $newProjectName);
-        $this->replaceName('Container', $oldContainerName, $newContainerName);
+        $this->replaceName(self::PROJECT, $oldProjectName, $newProjectName);
+        $this->replaceName(self::CONTAINER, $oldContainerName, $newContainerName);
         $this->removeUnrelatedFiles($newProjectName);
         $this->gitInit();
 
@@ -44,9 +49,11 @@ final class CreateNewProject
     {
         $str[0] = strtolower($str[0]);
 
-        return preg_replace_callback('/([A-Z])/', function ($c) {
-            return "_" . strtolower($c[1]);
-        }, $str);
+        return preg_replace_callback(
+            '/([A-Z])/',
+            fn(array $c): string => "_" . strtolower($c[1]),
+            $str
+        );
     }
 
     private function replaceName(string $what, string $oldName, string $newName): void
@@ -65,7 +72,7 @@ final class CreateNewProject
             return false;
         }
 
-        return empty($input) || $input[0] === 'Y';
+        return empty($input) || strtolower($input[0]) === 'y';
     }
 
     private function removeUnrelatedFiles(string $newProjectName): void
@@ -112,5 +119,5 @@ final class CreateNewProject
     }
 }
 
-$createNewProject = new CreateNewProject(basename(__FILE__));
-$createNewProject->prepareProject(basename(getcwd()));
+$installer = new Installer(basename(__FILE__));
+$installer->prepareProject(basename(getcwd()));
