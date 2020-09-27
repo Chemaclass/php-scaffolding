@@ -17,11 +17,10 @@ This is a scaffolding for PHP projects using Docker. In this repository you will
 > git clone https://github.com/Chemaclass/PhpScaffolding YourProjectName
 
 #### Setup the new project
+> php install.php
 
-Using the installer script `php create-new-project.php`:
-> It will  replace the Project & Container names (PhpScaffolding | php_scaffolding)
-> to customized values (by default using the name directory where you did the fork)
-> For example: YourProjectName | your_project_name
+Using the installer script `install.php` it will replace the Project & Container names (PhpScaffolding | php_scaffolding)
+to customized values (by default using the name directory where you did the clone).
 
 ### Installing dependencies
 
