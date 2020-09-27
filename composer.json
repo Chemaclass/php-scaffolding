@@ -15,7 +15,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
         "symfony/var-dumper": "^5.0",
-        "phpunit/phpunit": "^9.2",
+        "phpunit/phpunit": "^9.3",
         "infection/infection": "^0.16",
         "vimeo/psalm": "^3.12"
     },
