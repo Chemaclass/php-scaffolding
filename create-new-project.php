@@ -1,15 +1,67 @@
 <?php declare(strict_types=1);
 
-/** @psalm-immutable */
 final class OldNewPair
 {
-    public string $old;
-    public string $new;
+    private string $old;
+    private string $new;
 
     public function __construct(string $old, string $new)
     {
         $this->old = $old;
         $this->new = $new;
+    }
+
+    public function old(): string
+    {
+        return $this->old;
+    }
+
+    public function new(): string
+    {
+        return $this->new;
+    }
+}
+
+final class InputCollection
+{
+    private bool $shouldRemoveGit;
+    private OldNewPair $projectName;
+    private OldNewPair $containerName;
+
+    public function __construct(
+        bool $shouldRemoveGit,
+        OldNewPair $projectName,
+        OldNewPair $containerName
+    ) {
+        $this->shouldRemoveGit = $shouldRemoveGit;
+        $this->projectName = $projectName;
+        $this->containerName = $containerName;
+    }
+
+    public function shouldRemoveGit(): bool
+    {
+        return $this->shouldRemoveGit;
+    }
+
+    public function projectName(): OldNewPair
+    {
+        return $this->projectName;
+    }
+
+    public function containerName(): OldNewPair
+    {
+        return $this->containerName;
+    }
+
+    public function __toString(): string
+    {
+        $shouldRemoveGit = $this->shouldRemoveGit ? 'yes' : 'no';
+
+        return <<<EOF
+Should remove git: {$shouldRemoveGit}
+New project name: {$this->projectName->new()}
+New docker container Name: {$this->containerName->new()}
+EOF;
     }
 }
 
@@ -17,8 +69,8 @@ final class Installer
 {
     private const PROJECT = 'Project';
     private const CONTAINER = 'Container';
-    private const OLD = 'Old';
-    private const NEW = 'New';
+    private const OLD_PROJECT_NAME = 'PhpScaffolding';
+
     private const COLOR_RED = "\e[31m";
     private const COLOR_GREEN = "\e[32m";
     private const COLOR_YELLOW = "\e[33m";
@@ -33,35 +85,66 @@ final class Installer
 
     public function prepareProject(string $currentDir): void
     {
-        if (!$this->isAffirmative($this->input("Are you sure you want to delete the .git directory? [y/N]"), true)) {
+        $inputs = $this->collectInput($currentDir);
+        $this->printInfo((string)$inputs);
+
+        if (!$this->isAffirmative($this->input('Confirm [y/N]'), true)) {
             $this->printError('Aborting.');
 
             return;
         }
 
-        $oldProjectName = $this->askName(self::PROJECT, self::OLD, 'PhpScaffolding');
-        $newProjectName = $this->askName(self::PROJECT, self::NEW, $currentDir);
-
-        $oldContainerName = $this->askName(self::CONTAINER, self::OLD, 'php_scaffolding');
-        $newContainerName = $this->askName(self::CONTAINER, self::NEW, $this->fromCamelCaseToSnakeCase($currentDir));
-
-        $this->replaceName(self::PROJECT, new OldNewPair($oldProjectName, $newProjectName));
-        $this->replaceName(self::CONTAINER, new OldNewPair($oldContainerName, $newContainerName));
-        $this->removeUnrelatedFiles($newProjectName);
-        $this->gitInit();
-
-        $this->printSuccess("Project '{$newProjectName}' setup successfully.");
+        $this->replaceName(self::PROJECT, $inputs->projectName());
+        $this->replaceName(self::CONTAINER, $inputs->containerName());
+        $this->removeUnrelatedFiles($inputs);
+        $this->printSuccess("Project '{$inputs->projectName()->new()}' set-up successfully.");
+        $this->println("Feel free to remove this file by your own '{$this->currentScriptName}'.");
     }
 
-    private function askName(string $what, string $state, string $default): string
+    private function collectInput(string $currentDir): InputCollection
     {
-        $this->throwExceptionIf(empty($default), "Default {$what} name can not be empty!");
-        $input = $this->input("{$state} {$what} name [{$default}]");
-        $projectName = !empty($input) ? trim($input) : $default;
-        $result = trim($projectName);
-        $this->throwExceptionIf(empty($result), "The new {$what} name can not be empty!");
+        $shouldRemoveGit = $this->isAffirmative($this->input(
+            "Do you want to delete the current git history? [Y/n]"
+        ));
 
-        return $result;
+        $newProjectName = $this->askNewProjectName($currentDir);
+
+        return new InputCollection(
+            $shouldRemoveGit,
+            new OldNewPair(
+                self::OLD_PROJECT_NAME,
+                $newProjectName
+            ),
+            new OldNewPair(
+                $this->fromCamelCaseToSnakeCase(self::OLD_PROJECT_NAME),
+                $this->fromCamelCaseToSnakeCase($newProjectName)
+            )
+        );
+    }
+
+    private function isAffirmative(string $input, bool $forceInput = false): bool
+    {
+        if ($forceInput && empty($input)) {
+            return false;
+        }
+
+        return empty($input) || strtolower($input[0]) === 'y';
+    }
+
+    private function input(string $prompt): string
+    {
+        return (string)readline("> {$prompt}: ");
+    }
+
+    private function askNewProjectName(string $defaultName): string
+    {
+        if (empty($defaultName)) {
+            throw new RuntimeException("Default project name can not be empty!");
+        }
+
+        $input = trim($this->input("The new project name [{$defaultName}]"));
+
+        return !empty($input) ? $input : $defaultName;
     }
 
     private function fromCamelCaseToSnakeCase(string $str): string
@@ -77,33 +160,35 @@ final class Installer
 
     private function replaceName(string $what, OldNewPair $pair): void
     {
-        $answer = $this->input("Should I replace the old {$what} name({$pair->old}) to the new one({$pair->new})? [Y/n]");
-
-        if ($this->isAffirmative($answer)) {
-            $command = <<<TXT
-grep -rl {$pair->old} . --exclude={$this->currentScriptName} --exclude-dir=.idea \
-| xargs sed -i '' -e 's/{$pair->old}/{$pair->new}/g'
+        $command = <<<TXT
+grep -rl {$pair->old()} . --exclude={$this->currentScriptName} --exclude-dir=.idea \
+| xargs sed -i '' -e 's/{$pair->old()}/{$pair->new()}/g'
 TXT;
-            exec($command);
-            $this->printInfo("$what name replaced successfully.");
-        }
+        exec($command);
+        $this->printInfo("$what name replaced successfully (from {$pair->old()} to {$pair->new()}).");
     }
 
-    private function isAffirmative(string $input, bool $forceInput = false): bool
+    private function printInfo(string $str): void
     {
-        if ($forceInput && empty($input)) {
-            return false;
-        }
-
-        return empty($input) || strtolower($input[0]) === 'y';
+        $this->println($str, self::COLOR_YELLOW);
     }
 
-    private function removeUnrelatedFiles(string $newProjectName): void
+    private function println(string $str, string $color = ''): void
     {
-        $this->remove(".git");
+        echo sprintf("%s%s%s\n", $color, $str, self::COLOR_DEFAULT);
+    }
+
+    private function removeUnrelatedFiles(InputCollection $inputs): void
+    {
+        if ($inputs->shouldRemoveGit()) {
+            $this->remove(".git");
+            exec('git init');
+            $this->printInfo('.git created successfully.');
+        }
+
         $this->remove('CNAME');
         $this->remove('LICENSE.md');
-        $this->createFile('README.md', "## {$newProjectName}");
+        $this->createFile('README.md', "## {$inputs->projectName()->new()}");
     }
 
     private function remove(string $path): void
@@ -125,42 +210,14 @@ TXT;
         $this->printInfo("File {$filePath} created successfully.");
     }
 
-    private function gitInit(): void
-    {
-        exec('git init');
-        $this->printInfo('.git created successfully.');
-    }
-
     private function printSuccess(string $str): void
     {
         $this->println($str, self::COLOR_GREEN);
     }
 
-    private function printInfo(string $str): void
-    {
-        $this->println($str, self::COLOR_YELLOW);
-    }
-
     private function printError(string $str): void
     {
         $this->println($str, self::COLOR_RED);
-    }
-
-    private function println(string $str, string $color = ''): void
-    {
-        echo sprintf("%s%s%s\n", $color, $str, self::COLOR_DEFAULT);
-    }
-
-    private function input(string $prompt): string
-    {
-        return (string)readline("> {$prompt}: ");
-    }
-
-    private function throwExceptionIf(bool $condition, string $message): void
-    {
-        if ($condition) {
-            throw new RuntimeException($message);
-        }
     }
 }
 
