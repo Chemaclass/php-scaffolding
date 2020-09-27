@@ -5,7 +5,6 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.3/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         cacheTokens="false"
          testdox="true"
          convertErrorsToExceptions="true"
 >
@@ -18,10 +17,4 @@
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>src</directory>
-        </whitelist>
-    </filter>
 </phpunit>

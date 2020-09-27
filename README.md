@@ -72,4 +72,5 @@ Feel free to open any PR with your ideas, suggestions or improvements.
 ```bash
 docker-compose up -d
 docker-compose exec php_scaffolding composer install
+docker exec -ti -u dev php_scaffolding bash
 ```
