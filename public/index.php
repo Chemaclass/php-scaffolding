@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 declare(strict_types=1);
@@ -7,7 +6,4 @@ use Domain\AnyLogic;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$logic = new AnyLogic();
-
-echo $logic->sum(1, 2, 3);
-echo PHP_EOL;
+echo AnyLogic::sum(1, 2, 3) . PHP_EOL;
