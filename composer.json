@@ -8,10 +8,10 @@
         "scaffolding"
     ],
     "require": {
-        "php": "^7.4",
-        "ext-readline": "*"
+        "php": "^7.4"
     },
     "require-dev": {
+        "ext-readline": "*",
         "friendsofphp/php-cs-fixer": "^2.15",
         "symfony/var-dumper": "^5.0",
         "phpunit/phpunit": "^9.3",

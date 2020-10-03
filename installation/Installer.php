@@ -41,11 +41,11 @@ final class Installer
         $this->replaceName(self::PROJECT, $inputs->projectName());
         $this->replaceName(self::CONTAINER, $inputs->containerName());
 
-        $this->prepareGitRelatedFiles($inputs);
         $this->createRelatedFiles();
         $this->installComposerDependencies($inputs);
-
         $this->removeUnrelatedFiles();
+        $this->prepareGitRelatedFiles($inputs);
+
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
     }
 
@@ -121,7 +121,8 @@ TXT;
         if ($inputs->shouldResetGit()) {
             exec('git init');
             $this->printer->info('Git repository created successfully.');
-            exec('git commit -am "Initial commit"');
+            exec('git add .');
+            exec('git commit -m "Initial commit"');
 
             exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
             exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
