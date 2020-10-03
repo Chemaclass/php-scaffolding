@@ -13,16 +13,20 @@ This is a scaffolding for PHP projects using Docker. In this repository you will
 
 ## Custom Installation
 
-#### Clone this repository
+### Clone this repository
+
 > git clone https://github.com/Chemaclass/PhpScaffolding YourProjectName
 
-#### Setup the new project
+#### Using the installer script to set-up the new project
+
+To run the installation script you will need to have a `PHP 7.1+` in your local:
+
 > php install.php
 
-Using the installer script `install.php` it will replace the Project & Container names (PhpScaffolding | php_scaffolding)
-to customized values (by default using the name directory where you did the clone).
+Using the installer script `install.php` it will replace the Project & Container names
+to customized values and prepare everything you need to start working in your project.
 
-### Installing dependencies
+#### Installing the dependencies manually
 
 To set up the container and install the composer dependencies:
 
@@ -30,6 +34,8 @@ To set up the container and install the composer dependencies:
 docker-compose up -d
 docker-compose exec your_project_name composer install
 ```
+
+### Getting the bash from your project
 
 If you want to go inside the docker container:
 
