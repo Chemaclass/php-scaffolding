@@ -34,4 +34,3 @@ final class EchoPrinter
         echo sprintf("%s%s%s\n", $color, $str, self::COLOR_DEFAULT);
     }
 }
-

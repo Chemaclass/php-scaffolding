@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 require_once 'installation/EchoPrinter.php';
 require_once 'installation/InputCollection.php';
-require_once 'installation/OldNewPair.php';
+require_once 'installation/Pair.php';
 require_once 'installation/Str.php';
 
 final class Installer
 {
     private const PROJECT = 'Project';
     private const CONTAINER = 'Container';
-    private const OLD_PROJECT_NAME = 'PhpScaffolding';
+    private const DEFAULT_PROJECT_NAME = 'PhpScaffolding';
 
     /** @var string */
     private $currentScriptName;
@@ -19,10 +19,8 @@ final class Installer
     /** @var EchoPrinter */
     private $printer;
 
-    public function __construct(
-        string $currentScriptName,
-        EchoPrinter $printer
-    ) {
+    public function __construct(string $currentScriptName, EchoPrinter $printer)
+    {
         $this->currentScriptName = $currentScriptName;
         $this->printer = $printer;
     }
@@ -48,25 +46,25 @@ final class Installer
         $this->installComposerDependencies($inputs);
 
         $this->removeUnrelatedFiles();
-        $this->printer->success("Project '{$inputs->projectName()->new()}' set-up successfully.");
+        $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
     }
 
     private function collectInput(string $currentDir): InputCollection
     {
-        $shouldRemoveGit = $this->isAffirmative($this->input(
-            "Do you want to delete the current git history? [Y/n]"
+        $shouldResetGit = $this->isAffirmative($this->input(
+            "Do you want to clean up the git history? [Y/n]"
         ));
 
         $newProjectName = $this->askNewProjectName($currentDir);
 
         return new InputCollection(
-            $shouldRemoveGit,
-            new OldNewPair(
-                self::OLD_PROJECT_NAME,
+            $shouldResetGit,
+            new Pair(
+                self::DEFAULT_PROJECT_NAME,
                 $newProjectName
             ),
-            new OldNewPair(
-                Str::fromCamelCaseToSnakeCase(self::OLD_PROJECT_NAME),
+            new Pair(
+                Str::fromCamelCaseToSnakeCase(self::DEFAULT_PROJECT_NAME),
                 Str::fromCamelCaseToSnakeCase($newProjectName)
             )
         );
@@ -97,19 +95,19 @@ final class Installer
         return !empty($input) ? $input : $defaultName;
     }
 
-    private function replaceName(string $what, OldNewPair $pair): void
+    private function replaceName(string $what, Pair $pair): void
     {
         $command = <<<TXT
-grep -rl {$pair->old()} . --exclude={$this->currentScriptName} --exclude-dir=.idea \
-| xargs sed -i '' -e 's/{$pair->old()}/{$pair->new()}/g'
+grep -rl {$pair->first()} . --exclude={$this->currentScriptName} --exclude-dir=.idea \
+| xargs sed -i '' -e 's/{$pair->first()}/{$pair->second()}/g'
 TXT;
         exec($command);
-        $this->printer->info("$what name replaced successfully (from {$pair->old()} to {$pair->new()}).");
+        $this->printer->info("$what name replaced successfully (from {$pair->first()} to {$pair->second()}).");
     }
 
     private function prepareGitRelatedFiles(InputCollection $inputs): void
     {
-        if ($inputs->shouldRemoveGit()) {
+        if ($inputs->shouldResetGit()) {
             $this->remove(".git");
             exec('git init');
             $this->printer->info('Git repository created successfully.');
@@ -157,8 +155,7 @@ TXT;
     {
         exec("docker-compose up -d --build --remove-orphans");
         $this->printer->default("Installing composer dependencies...");
-        exec("docker-compose exec -T {$inputs->containerName()->new()} composer install &");
+        exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");
         $this->printer->success("Composer dependencies installed successfully.");
     }
 }
-
