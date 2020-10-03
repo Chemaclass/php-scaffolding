@@ -1,8 +1,7 @@
 {
-    "name": "chemaclass/php-scaffolding",
     "description": "A basic PHP scaffolding with Docker",
     "type": "project",
-    "homepage": "https://github.com/Chemaclass/PhpScaffolding",
+    "homepage": "https://php-scaffolding.chemaclass.com/",
     "license": "MIT",
     "keywords": [
         "php",

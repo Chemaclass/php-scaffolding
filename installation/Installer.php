@@ -52,13 +52,18 @@ final class Installer
     private function collectInput(string $currentDir): InputCollection
     {
         $shouldResetGit = $this->isAffirmative($this->input(
-            "Do you want to clean up the git history? [Y/n]"
+            "Do you want to reset the git history? [Y/n]"
+        ));
+
+        $shouldInstallComposerDependencies = $this->isAffirmative($this->input(
+            "Do you want to install the composer dependencies directly? [Y/n]"
         ));
 
         $newProjectName = $this->askNewProjectName($currentDir);
 
         return new InputCollection(
             $shouldResetGit,
+            $shouldInstallComposerDependencies,
             new Pair(
                 self::DEFAULT_PROJECT_NAME,
                 $newProjectName
@@ -105,18 +110,25 @@ TXT;
         $this->printer->info("$what name replaced successfully (from {$pair->first()} to {$pair->second()}).");
     }
 
+    /**
+     * The installation command always removes the current git repository.
+     * It will start/init git only if we said to "reset it".
+     */
     private function prepareGitRelatedFiles(InputCollection $inputs): void
     {
+        $this->remove(".git");
+
         if ($inputs->shouldResetGit()) {
-            $this->remove(".git");
             exec('git init');
             $this->printer->info('Git repository created successfully.');
             exec('git commit -am "Initial commit"');
-        }
 
-        exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
-        exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
-        $this->printer->info('.git/hooks linked successfully.');
+            exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
+            exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
+            $this->printer->info('.git/hooks linked successfully.');
+        } else {
+            $this->remove('tools/scripts/git-hooks');
+        }
     }
 
     private function createRelatedFiles(): void
@@ -153,6 +165,10 @@ TXT;
 
     private function installComposerDependencies(InputCollection $inputs): void
     {
+        if (!$inputs->shouldInstallComposerDependencies()) {
+            return;
+        }
+
         exec("docker-compose up -d --build --remove-orphans");
         $this->printer->default("Installing composer dependencies...");
         exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");

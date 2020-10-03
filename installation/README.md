@@ -37,10 +37,3 @@ composer psalm  # run Psalm coverage
 composer infect # run Mutation Testing
 composer csfix  # run the code fixer (`.php_cs`)
 ```
-
-## Git hooks
-
-There are some git hooks
-
-* `./tools/scripts/git-hooks/pre-commit.sh`
-* `./tools/scripts/git-hooks/pre-push.sh`
