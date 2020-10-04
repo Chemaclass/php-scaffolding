@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Domain\\": "src/Domain"
+            "App\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DomainTests\\": "tests"
+            "Tests\\": "tests"
         }
     },
     "scripts": {

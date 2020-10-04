@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DomainTests\Unit;
+namespace Tests\Unit\Domain;
 
-use Domain\AnyLogic;
+use App\Domain\AnyLogic;
 use PHPUnit\Framework\TestCase;
 
 final class AnyLogicTest extends TestCase
