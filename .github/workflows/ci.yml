@@ -1,7 +1,6 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  - pull_request
   - push
 
 name: CI
@@ -69,6 +68,3 @@ jobs:
 
       - name: Run tests
         run: ./vendor/bin/phpunit
-
-      - name: Run infection
-        run: ./vendor/bin/infection --threads=4 --min-msi=80 --only-covered --log-verbosity=default

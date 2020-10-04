@@ -15,7 +15,6 @@
         "friendsofphp/php-cs-fixer": "^2.15",
         "symfony/var-dumper": "^5.0",
         "phpunit/phpunit": "^9.3",
-        "infection/infection": "^0.16",
         "vimeo/psalm": "^3.12"
     },
     "autoload": {
@@ -35,11 +34,9 @@
         ],
         "test-quality": [
             "@psalm",
-            "@infect"
         ],
         "test-unit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm",
-        "infect": "./vendor/bin/infection",
         "csfix": "./vendor/bin/php-cs-fixer fix"
     }
 }

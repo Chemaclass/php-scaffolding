@@ -29,11 +29,10 @@ docker exec -ti -u dev php_scaffolding bash
 ## Composer Scripts
 
 ```bash
-composer test-all     # run test-quality (psalm, infect) and test-unit (phpunit)
-composer test-quality # run psalm and infect
+composer test     # run test-quality and test-unit
+composer test-quality # run psalm
 composer test-unit    # run phpunit
 
 composer psalm  # run Psalm coverage
-composer infect # run Mutation Testing
 composer csfix  # run the code fixer (`.php_cs`)
 ```
