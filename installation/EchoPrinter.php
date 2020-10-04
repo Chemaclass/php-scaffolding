@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-final class EchoPrinter
+require_once 'Interfaces/PrinterInterface.php';
+
+final class EchoPrinter implements PrinterInterface
 {
     private const COLOR_RED = "\e[31m";
     private const COLOR_GREEN = "\e[32m";

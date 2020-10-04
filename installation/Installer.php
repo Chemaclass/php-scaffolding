@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-require_once 'installation/EchoPrinter.php';
-require_once 'installation/InputCollection.php';
-require_once 'installation/Pair.php';
-require_once 'installation/Str.php';
-require_once 'installation/SystemIO.php';
+require_once 'Interfaces/PrinterInterface.php';
+require_once 'Interfaces/SystemInterface.php';
+require_once 'ReadModel/InputCollection.php';
+require_once 'ReadModel/Pair.php';
+require_once 'Str.php';
 
 final class Installer
 {
@@ -15,16 +15,16 @@ final class Installer
     /** @var string */
     private $currentScriptName;
 
-    /** @var EchoPrinter */
+    /** @var PrinterInterface */
     private $printer;
 
-    /** @var SystemIO */
+    /** @var SystemInterface */
     private $system;
 
     public function __construct(
         string $currentScriptName,
-        EchoPrinter $printer,
-        SystemIO $system
+        PrinterInterface $printer,
+        SystemInterface $system
     ) {
         $this->currentScriptName = $currentScriptName;
         $this->printer = $printer;
@@ -47,8 +47,8 @@ final class Installer
         $this->replaceName(self::PROJECT, $inputs->projectName());
         $this->replaceName(self::CONTAINER, $inputs->containerName());
 
-        $this->createRelatedFiles();
         $this->installComposerDependencies($inputs);
+        $this->createRelatedFiles();
         $this->removeUnrelatedFiles();
         $this->prepareGitRelatedFiles();
 
@@ -58,7 +58,7 @@ final class Installer
     private function collectInput(string $currentDir): InputCollection
     {
         $shouldInstallComposerDependencies = $this->isAffirmative($this->input(
-            "Do you want to install the composer dependencies directly? [Y/n]"
+            "Do you want to build the docker container and install the composer dependencies? [Y/n]"
         ));
 
         $newProjectName = $this->askNewProjectName($currentDir);
@@ -111,27 +111,29 @@ TXT;
         $this->printer->info("$what name replaced successfully (from {$pair->first()} to {$pair->second()}).");
     }
 
-    private function prepareGitRelatedFiles(): void
+    private function installComposerDependencies(InputCollection $inputs): void
     {
-        $this->remove(".git");
-        $this->system->exec('git init');
-        $this->printer->info('Git repository created successfully.');
-        $this->system->exec('git add .');
-        $this->system->exec('git commit -m "Initial commit"');
+        if (!$inputs->shouldInstallComposerDependencies()) {
+            return;
+        }
 
-        $this->system->exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
-        $this->system->exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
-        $this->printer->info('.git/hooks linked successfully.');
+        $this->printer->default("Creating the docker image...");
+        $this->system->exec("docker-compose up -d --build --remove-orphans");
+        $this->printer->success("Docker image created successfully.");
+
+        $this->printer->default("Installing composer dependencies...");
+        $this->system->exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");
+        $this->printer->success("Composer dependencies installed successfully.");
     }
 
     private function createRelatedFiles(): void
     {
-        $this->createFile('README.md', file_get_contents('./installation/README.md'));
+        $this->createFile('README.md', $this->system->fileGetContents('./installation/README.md'));
     }
 
     private function createFile(string $filePath, string $fileContent): void
     {
-        file_put_contents($filePath, $fileContent);
+        $this->system->filePutContents($filePath, $fileContent);
         $this->printer->info("File {$filePath} created successfully.");
     }
 
@@ -157,18 +159,16 @@ TXT;
         }
     }
 
-    private function installComposerDependencies(InputCollection $inputs): void
+    private function prepareGitRelatedFiles(): void
     {
-        if (!$inputs->shouldInstallComposerDependencies()) {
-            return;
-        }
+        $this->remove(".git");
+        $this->system->exec('git init');
+        $this->printer->info('Git repository created successfully.');
+        $this->system->exec('git add .');
+        $this->system->exec('git commit -m "Initial commit"');
 
-        $this->printer->default("Creating the docker image...");
-        $this->system->exec("docker-compose up -d --build --remove-orphans");
-        $this->printer->success("Docker image created successfully.");
-
-        $this->printer->default("Installing composer dependencies...");
-        $this->system->exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");
-        $this->printer->success("Composer dependencies installed successfully.");
+        $this->system->exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
+        $this->system->exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
+        $this->printer->info('.git/hooks linked successfully.');
     }
 }

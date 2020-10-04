@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+/** @psalm-immutable */
 final class InputCollection
 {
     /** @var bool */
