@@ -129,6 +129,8 @@ TXT;
             $this->printer->info('.git/hooks linked successfully.');
         } else {
             $this->remove('tools/scripts/git-hooks');
+            $this->remove('.github');
+            $this->remove('.gitignore');
         }
     }
 
@@ -171,7 +173,10 @@ TXT;
             return;
         }
 
+        $this->printer->default("Creating the docker image...");
         exec("docker-compose up -d --build --remove-orphans");
+        $this->printer->success("DOcker image created successfully.");
+
         $this->printer->default("Installing composer dependencies...");
         exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");
         $this->printer->success("Composer dependencies installed successfully.");
