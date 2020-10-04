@@ -32,7 +32,7 @@ final class Installer
         $inputs = $this->collectInput($currentDir);
         $this->printer->info((string)$inputs);
 
-        if (!$this->isAffirmative($this->input('Confirm [y/N]'), true)) {
+        if (!$this->isAffirmative($this->input('Confirm [y/N]'), false)) {
             $this->printer->error('Aborting.');
 
             return;
@@ -75,13 +75,13 @@ final class Installer
         );
     }
 
-    private function isAffirmative(string $input, bool $forceInput = false): bool
+    private function isAffirmative(string $input, bool $valueWhenEmptyInput = true): bool
     {
-        if ($forceInput && empty($input)) {
-            return false;
+        if (empty($input)) {
+            return $valueWhenEmptyInput;
         }
 
-        return empty($input) || strtolower($input[0]) === 'y';
+        return strtolower($input[0]) === 'y';
     }
 
     private function input(string $prompt): string
