@@ -33,7 +33,7 @@
             "@test-unit"
         ],
         "test-quality": [
-            "@psalm",
+            "@psalm"
         ],
         "test-unit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm",
