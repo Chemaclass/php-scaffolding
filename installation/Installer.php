@@ -1,11 +1,10 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 require_once 'installation/EchoPrinter.php';
 require_once 'installation/InputCollection.php';
 require_once 'installation/Pair.php';
 require_once 'installation/Str.php';
+require_once 'installation/SystemIO.php';
 
 final class Installer
 {
@@ -19,10 +18,17 @@ final class Installer
     /** @var EchoPrinter */
     private $printer;
 
-    public function __construct(string $currentScriptName, EchoPrinter $printer)
-    {
+    /** @var SystemIO */
+    private $system;
+
+    public function __construct(
+        string $currentScriptName,
+        EchoPrinter $printer,
+        SystemIO $system
+    ) {
         $this->currentScriptName = $currentScriptName;
         $this->printer = $printer;
+        $this->system = $system;
     }
 
     public function prepareProject(string $currentDir): void
@@ -44,7 +50,7 @@ final class Installer
         $this->createRelatedFiles();
         $this->installComposerDependencies($inputs);
         $this->removeUnrelatedFiles();
-        $this->prepareGitRelatedFiles($inputs);
+        $this->prepareGitRelatedFiles();
 
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
     }
@@ -81,7 +87,7 @@ final class Installer
 
     private function input(string $prompt): string
     {
-        return (string)readline("> {$prompt}: ");
+        return $this->system->readline("> {$prompt}: ");
     }
 
     private function askNewProjectName(string $defaultName): string
@@ -101,24 +107,20 @@ final class Installer
 grep -rl {$pair->first()} . --exclude={$this->currentScriptName} --exclude-dir=.idea \
 | xargs sed -i '' -e 's/{$pair->first()}/{$pair->second()}/g'
 TXT;
-        exec($command);
+        $this->system->exec($command);
         $this->printer->info("$what name replaced successfully (from {$pair->first()} to {$pair->second()}).");
     }
 
-    /**
-     * The installation command always removes the current git repository.
-     * It will start/init git only if we said to "reset it".
-     */
-    private function prepareGitRelatedFiles(InputCollection $inputs): void
+    private function prepareGitRelatedFiles(): void
     {
         $this->remove(".git");
-        exec('git init');
+        $this->system->exec('git init');
         $this->printer->info('Git repository created successfully.');
-        exec('git add .');
-        exec('git commit -m "Initial commit"');
+        $this->system->exec('git add .');
+        $this->system->exec('git commit -m "Initial commit"');
 
-        exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
-        exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
+        $this->system->exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
+        $this->system->exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
         $this->printer->info('.git/hooks linked successfully.');
     }
 
@@ -145,12 +147,12 @@ TXT;
     private function remove(string $path): void
     {
         if (is_dir($path)) {
-            exec("rm -rf {$path}");
+            $this->system->exec("rm -rf {$path}");
             $this->printer->info("Directory {$path} removed successfully.");
         }
 
         if (file_exists($path)) {
-            exec("rm {$path}");
+            $this->system->exec("rm {$path}");
             $this->printer->info("File {$path} removed successfully.");
         }
     }
@@ -162,11 +164,11 @@ TXT;
         }
 
         $this->printer->default("Creating the docker image...");
-        exec("docker-compose up -d --build --remove-orphans");
-        $this->printer->success("DOcker image created successfully.");
+        $this->system->exec("docker-compose up -d --build --remove-orphans");
+        $this->printer->success("Docker image created successfully.");
 
         $this->printer->default("Installing composer dependencies...");
-        exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");
+        $this->system->exec("docker-compose exec -T {$inputs->containerName()->second()} composer install &");
         $this->printer->success("Composer dependencies installed successfully.");
     }
 }
