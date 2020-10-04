@@ -146,6 +146,7 @@ TXT;
     private function removeUnrelatedFiles(): void
     {
         $this->remove('CNAME');
+        $this->remove('_config.yml');
         $this->remove('LICENSE.md');
         $this->remove('installation');
         $this->remove($this->currentScriptName);
