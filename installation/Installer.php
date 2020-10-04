@@ -51,10 +51,6 @@ final class Installer
 
     private function collectInput(string $currentDir): InputCollection
     {
-        $shouldResetGit = $this->isAffirmative($this->input(
-            "Do you want to reset the git history? [Y/n]"
-        ));
-
         $shouldInstallComposerDependencies = $this->isAffirmative($this->input(
             "Do you want to install the composer dependencies directly? [Y/n]"
         ));
@@ -62,7 +58,6 @@ final class Installer
         $newProjectName = $this->askNewProjectName($currentDir);
 
         return new InputCollection(
-            $shouldResetGit,
             $shouldInstallComposerDependencies,
             new Pair(
                 self::DEFAULT_PROJECT_NAME,
@@ -117,21 +112,14 @@ TXT;
     private function prepareGitRelatedFiles(InputCollection $inputs): void
     {
         $this->remove(".git");
+        exec('git init');
+        $this->printer->info('Git repository created successfully.');
+        exec('git add .');
+        exec('git commit -m "Initial commit"');
 
-        if ($inputs->shouldResetGit()) {
-            exec('git init');
-            $this->printer->info('Git repository created successfully.');
-            exec('git add .');
-            exec('git commit -m "Initial commit"');
-
-            exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
-            exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
-            $this->printer->info('.git/hooks linked successfully.');
-        } else {
-            $this->remove('tools/scripts/git-hooks');
-            $this->remove('.github');
-            $this->remove('.gitignore');
-        }
+        exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
+        exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
+        $this->printer->info('.git/hooks linked successfully.');
     }
 
     private function createRelatedFiles(): void
