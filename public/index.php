@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Domain\AnyLogic;
+use App\Domain\Math;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-echo AnyLogic::sum(1, 2, 3) . PHP_EOL;
+echo Math::sum(1, 2, 3) . PHP_EOL;
