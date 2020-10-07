@@ -146,19 +146,6 @@ TXT;
         $this->remove($this->currentScriptName);
     }
 
-    private function remove(string $path): void
-    {
-        if (is_dir($path)) {
-            $this->system->exec("rm -rf {$path}");
-            $this->printer->info("Directory {$path} removed successfully.");
-        }
-
-        if (file_exists($path)) {
-            $this->system->exec("rm {$path}");
-            $this->printer->info("File {$path} removed successfully.");
-        }
-    }
-
     private function prepareGitRelatedFiles(): void
     {
         $this->remove(".git");
@@ -170,5 +157,18 @@ TXT;
         $this->system->exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
         $this->system->exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
         $this->printer->info('.git/hooks linked successfully.');
+    }
+
+    private function remove(string $path): void
+    {
+        if ($this->system->isDir($path)) {
+            $this->system->exec("rm -rf {$path}");
+            $this->printer->info("Directory {$path} removed successfully.");
+        }
+
+        if ($this->system->fileExists($path)) {
+            $this->system->exec("rm {$path}");
+            $this->printer->info("File {$path} removed successfully.");
+        }
     }
 }

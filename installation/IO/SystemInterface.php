@@ -9,4 +9,8 @@ interface SystemInterface
     public function fileGetContents(string $string): string;
 
     public function filePutContents(string $filePath, string $fileContent);
+
+    public function isDir(string $path): bool;
+
+    public function fileExists(string $path): bool;
 }

@@ -23,4 +23,14 @@ final class SystemIO implements SystemInterface
     {
         file_put_contents($filePath, $fileContent);
     }
+
+    public function isDir(string $path): bool
+    {
+        return is_dir($path);
+    }
+
+    public function fileExists(string $path): bool
+    {
+        return file_exists($path);
+    }
 }
