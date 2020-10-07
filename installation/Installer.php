@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-require_once 'Interfaces/PrinterInterface.php';
-require_once 'Interfaces/SystemInterface.php';
+require_once 'IO/PrinterInterface.php';
+require_once 'IO/SystemInterface.php';
 require_once 'ReadModel/InputCollection.php';
 require_once 'ReadModel/Pair.php';
 require_once 'Str.php';
