@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-require_once 'Interfaces/SystemInterface.php';
+require_once 'SystemInterface.php';
 
 final class SystemIO implements SystemInterface
 {

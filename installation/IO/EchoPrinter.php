@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-require_once 'Interfaces/PrinterInterface.php';
+require_once 'PrinterInterface.php';
 
 final class EchoPrinter implements PrinterInterface
 {
