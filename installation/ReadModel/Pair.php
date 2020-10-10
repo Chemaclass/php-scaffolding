@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-/** @psalm-immutable  */
+/** @psalm-immutable */
 final class Pair
 {
     /** @var string */
