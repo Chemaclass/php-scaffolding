@@ -28,7 +28,6 @@ final class Installer
     {
         // TODO: verify that docker is installed and running... otherwise exit;
 
-        ;
         $inputs = $this->collectInput($fullInstallerFilePath);
         $this->printer->info((string)$inputs);
 
@@ -152,11 +151,18 @@ TXT;
         $this->system->exec('git add .');
         $this->system->exec('git commit -m "Initial commit"');
 
-        $this->system->exec("ln -s {$workingDirectory}/tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit");
-        $this->system->exec("chmod +x {$workingDirectory}/tools/scripts/git-hooks/pre-commit.sh");
-        $this->system->exec("ln -s {$workingDirectory}/tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push");
-        $this->system->exec("chmod +x {$workingDirectory}/tools/scripts/git-hooks/pre-push.sh");
-        $this->printer->info('.git/hooks linked successfully.');
+        $hooks = [
+            'pre-commit' => 'pre-commit.sh',
+            'pre-push' => 'pre-push.sh',
+        ];
+
+        foreach ($hooks as $gitHook => $bashHook) {
+            $this->system->exec("ln -s {$workingDirectory}/tools/scripts/git-hooks/{$bashHook} .git/hooks/{$gitHook}");
+            $this->system->exec("chmod +x {$workingDirectory}/tools/scripts/git-hooks/{$bashHook}");
+        }
+
+        $gitHooksAsStr = implode(',', array_keys($hooks));
+        $this->printer->info(".git/hooks ($gitHooksAsStr) linked successfully.");
     }
 
     private function remove(string $path): void
