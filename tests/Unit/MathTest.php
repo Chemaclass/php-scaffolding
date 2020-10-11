@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain;
+namespace Tests\Unit;
 
-use App\Domain\Math;
+use App\Math;
 use PHPUnit\Framework\TestCase;
 
 final class MathTest extends TestCase
