@@ -158,7 +158,6 @@ TXT;
 
         foreach ($hooks as $gitHook => $bashHook) {
             $this->system->exec("ln -s {$workingDirectory}/tools/scripts/git-hooks/{$bashHook} .git/hooks/{$gitHook}");
-            $this->system->exec("chmod +x {$workingDirectory}/tools/scripts/git-hooks/{$bashHook}");
         }
 
         $gitHooksAsStr = implode(',', array_keys($hooks));
