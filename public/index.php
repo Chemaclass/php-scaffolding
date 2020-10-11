@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Domain\Math;
+use App\Math;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
