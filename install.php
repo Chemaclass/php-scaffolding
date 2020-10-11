@@ -5,9 +5,8 @@ require_once 'installation/IO/EchoPrinter.php';
 require_once 'installation/IO/SystemIO.php';
 
 $installer = new Installer(
-    basename(__FILE__),
     new EchoPrinter(),
     new SystemIO()
 );
 
-$installer->prepareProject(basename(getcwd()));
+$installer->prepareProject(__FILE__);

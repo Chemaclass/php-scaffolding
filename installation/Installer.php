@@ -12,30 +12,24 @@ final class Installer
     private const CONTAINER = 'Container';
     private const DEFAULT_PROJECT_NAME = 'PhpScaffolding';
 
-    /** @var string */
-    private $currentScriptName;
-
     /** @var PrinterInterface */
     private $printer;
 
     /** @var SystemInterface */
     private $system;
 
-    public function __construct(
-        string $currentScriptName,
-        PrinterInterface $printer,
-        SystemInterface $system
-    ) {
-        $this->currentScriptName = $currentScriptName;
+    public function __construct(PrinterInterface $printer, SystemInterface $system)
+    {
         $this->printer = $printer;
         $this->system = $system;
     }
 
-    public function prepareProject(string $currentDir): void
+    public function prepareProject(string $fullInstallerFilePath): void
     {
         // TODO: verify that docker is installed and running... otherwise exit;
 
-        $inputs = $this->collectInput($currentDir);
+        ;
+        $inputs = $this->collectInput($fullInstallerFilePath);
         $this->printer->info((string)$inputs);
 
         if (!$this->isAffirmative($this->input('Confirm [y/N]'), false)) {
@@ -44,19 +38,22 @@ final class Installer
             return;
         }
 
-        $this->replaceName(self::PROJECT, $inputs->projectName());
-        $this->replaceName(self::CONTAINER, $inputs->containerName());
+        $this->replaceName($fullInstallerFilePath, self::PROJECT, $inputs->projectName());
+        $this->replaceName($fullInstallerFilePath, self::CONTAINER, $inputs->containerName());
 
         $this->installComposerDependencies($inputs);
         $this->createRelatedFiles();
-        $this->removeUnrelatedFiles();
-        $this->prepareGitRelatedFiles();
+        $this->removeUnrelatedFiles($fullInstallerFilePath);
+        $this->prepareGitRelatedFiles($fullInstallerFilePath);
 
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
     }
 
-    private function collectInput(string $currentDir): InputCollection
+    private function collectInput(string $fullInstallerFilePath): InputCollection
     {
+        $workingDirectory = dirname($fullInstallerFilePath);
+        $currentDir = basename($workingDirectory);
+
         $shouldInstallComposerDependencies = $this->isAffirmative($this->input(
             "Do you want to build the docker container and install the composer dependencies? [Y/n]"
         ));
@@ -101,10 +98,10 @@ final class Installer
         return !empty($input) ? $input : $defaultName;
     }
 
-    private function replaceName(string $what, Pair $pair): void
+    private function replaceName(string $fullInstallerFilePath, string $what, Pair $pair): void
     {
         $command = <<<TXT
-grep -rl {$pair->first()} . --exclude={$this->currentScriptName} --exclude-dir=.idea \
+grep -rl {$pair->first()} . --exclude={$fullInstallerFilePath} --exclude-dir=.idea \
 | xargs sed -i '' -e 's/{$pair->first()}/{$pair->second()}/g'
 TXT;
         $this->system->exec($command);
@@ -137,25 +134,28 @@ TXT;
         $this->printer->info("File {$filePath} created successfully.");
     }
 
-    private function removeUnrelatedFiles(): void
+    private function removeUnrelatedFiles(string $fullInstallerFilePath): void
     {
         $this->remove('CNAME');
         $this->remove('_config.yml');
         $this->remove('LICENSE.md');
         $this->remove('installation');
-        $this->remove($this->currentScriptName);
+        $this->remove($fullInstallerFilePath);
     }
 
-    private function prepareGitRelatedFiles(): void
+    private function prepareGitRelatedFiles(string $fullInstallerFilePath): void
     {
+        $workingDirectory = dirname($fullInstallerFilePath);
         $this->remove(".git");
         $this->system->exec('git init');
         $this->printer->info('Git repository created successfully.');
         $this->system->exec('git add .');
         $this->system->exec('git commit -m "Initial commit"');
 
-        $this->system->exec('ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit');
-        $this->system->exec('ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push');
+        $this->system->exec("ln -s {$workingDirectory}/tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit");
+        $this->system->exec("chmod +x {$workingDirectory}/tools/scripts/git-hooks/pre-commit.sh");
+        $this->system->exec("ln -s {$workingDirectory}/tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push");
+        $this->system->exec("chmod +x {$workingDirectory}/tools/scripts/git-hooks/pre-push.sh");
         $this->printer->info('.git/hooks linked successfully.');
     }
 
