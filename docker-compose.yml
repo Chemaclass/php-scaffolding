@@ -1,7 +1,11 @@
-php_scaffolding:
-  build: .
-  dockerfile: devops/dev/php74.dockerfile
-  container_name: php_scaffolding
-  hostname: php
-  volumes:
-    - .:/srv/PhpScaffolding:delegated
+version: "3.8"
+
+services:
+  php_scaffolding:
+    build:
+      context: .
+      dockerfile: devops/dev/php74.dockerfile
+    container_name: php_scaffolding
+    hostname: php
+    volumes:
+      - .:/srv/PhpScaffolding:delegated
