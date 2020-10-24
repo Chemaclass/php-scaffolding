@@ -17,7 +17,7 @@ final class PhpScaffolding
     {
         return array_reduce(
             $numbers,
-            static fn(int $carry, int $current): int => $carry + $current,
+            static fn (int $carry, int $current): int => $carry + $current,
             $initial = 0
         );
     }

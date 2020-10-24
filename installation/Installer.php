@@ -42,10 +42,13 @@ final class Installer
 
         $this->installComposerDependencies($inputs);
         $this->createRelatedFiles();
+
+        $promptAfterInstallation = $this->system->fileGetContents('./installation/prompt-after-installation.txt');
         $this->removeUnrelatedFiles($fullInstallerFilePath);
         $this->prepareGitRelatedFiles($fullInstallerFilePath);
 
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
+        $this->printer->default($promptAfterInstallation);
     }
 
     private function collectInput(string $fullInstallerFilePath): InputCollection
