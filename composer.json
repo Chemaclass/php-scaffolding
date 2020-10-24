@@ -37,6 +37,7 @@
         ],
         "test-unit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm",
+        "csrun": "./vendor/bin/php-cs-fixer fix --dry-run",
         "csfix": "./vendor/bin/php-cs-fixer fix"
     }
 }
