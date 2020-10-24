@@ -35,7 +35,7 @@ docker-compose exec php_scaffolding php -S 0.0.0.0:8080 public/index.php
 ## Composer Scripts
 
 ```bash
-composer test     # run test-quality and test-unit
+composer test-all     # run test-quality and test-unit
 composer test-quality # run psalm
 composer test-unit    # run phpunit
 

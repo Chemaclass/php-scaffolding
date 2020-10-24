@@ -46,7 +46,7 @@ docker exec -ti -u dev your_project_name bash
 ## Composer Scripts
 
 ```bash
-composer test     # run test-quality and test-unit
+composer test-all     # run test-quality and test-unit
 composer test-quality # run psalm
 composer test-unit    # run phpunit
 
