@@ -12,10 +12,10 @@
     },
     "require-dev": {
         "ext-readline": "*",
-        "friendsofphp/php-cs-fixer": "^2.15",
-        "symfony/var-dumper": "^5.0",
-        "phpunit/phpunit": "^9.3",
-        "vimeo/psalm": "^3.12"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "symfony/var-dumper": "^5.1",
+        "phpunit/phpunit": "^9.4",
+        "vimeo/psalm": "^3.18"
     },
     "autoload": {
         "psr-4": {
