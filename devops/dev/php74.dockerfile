@@ -5,7 +5,7 @@ RUN apt-get update && \
 RUN pecl install -o -f xdebug mbstring \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable xdebug
-RUN curl https://getcomposer.org/download/1.10.13/composer.phar > /usr/local/bin/composer
+RUN curl https://getcomposer.org/download/2.0.0/composer.phar > /usr/local/bin/composer
 RUN chmod 755 /usr/local/bin/composer
 RUN useradd -m dev
 WORKDIR /srv/PhpScaffolding
