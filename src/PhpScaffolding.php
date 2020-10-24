@@ -7,23 +7,18 @@ namespace App;
 use function array_reduce;
 
 /**
- * This is an "domain class example".
+ * This is an example of your logic-entry-point.
  *
  * @psalm-immutable
  */
-final class Math
+final class PhpScaffolding
 {
     public static function sum(int ...$numbers): int
     {
         return array_reduce(
             $numbers,
-            static fn (int $carry, int $current): int => $carry + $current,
+            static fn(int $carry, int $current): int => $carry + $current,
             $initial = 0
         );
-    }
-
-    public static function sub(int $n1, int $n2): int
-    {
-        return $n1 - $n2;
     }
 }
