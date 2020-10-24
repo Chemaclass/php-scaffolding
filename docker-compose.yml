@@ -9,3 +9,5 @@ services:
     hostname: php
     volumes:
       - .:/srv/PhpScaffolding:delegated
+    ports:
+      - 8080:8080

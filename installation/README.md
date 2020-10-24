@@ -26,6 +26,12 @@ You can go inside the docker container:
 docker exec -ti -u dev php_scaffolding bash
 ```
 
+Check out your code via the web browser creating a development server:
+
+```
+docker-compose exec php_scaffolding php -S 0.0.0.0:8080 public/index.php
+```
+
 ## Composer Scripts
 
 ```bash
