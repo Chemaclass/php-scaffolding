@@ -46,8 +46,8 @@ final class Installer
 
         $promptAfterInstallation = $this->system->fileGetContents('./installation/prompt-after-installation.txt');
         $this->removeUnrelatedFiles($fullInstallerFilePath);
-        $this->prepareGitRelatedFiles($fullInstallerFilePath);
         $this->replaceName($fullInstallerFilePath, self::PROJECT, $inputs->projectName());
+        $this->prepareGitRelatedFiles($fullInstallerFilePath);
 
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
         $this->printer->default($promptAfterInstallation);

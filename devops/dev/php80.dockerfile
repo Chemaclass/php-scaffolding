@@ -1,4 +1,4 @@
-FROM php:8.0.0alpha2-fpm
+FROM php:8.0.0RC5-fpm-buster
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git zip
