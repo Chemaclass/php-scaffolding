@@ -37,6 +37,7 @@ final class Installer
             return;
         }
 
+        $this->updateEntryPointExample($inputs);
         $this->replaceName($fullInstallerFilePath, self::PROJECT, $inputs->projectName());
         $this->replaceName($fullInstallerFilePath, self::CONTAINER, $inputs->containerName());
 
@@ -46,6 +47,7 @@ final class Installer
         $promptAfterInstallation = $this->system->fileGetContents('./installation/prompt-after-installation.txt');
         $this->removeUnrelatedFiles($fullInstallerFilePath);
         $this->prepareGitRelatedFiles($fullInstallerFilePath);
+        $this->replaceName($fullInstallerFilePath, self::PROJECT, $inputs->projectName());
 
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
         $this->printer->default($promptAfterInstallation);
@@ -103,7 +105,7 @@ final class Installer
     private function replaceName(string $fullInstallerFilePath, string $what, Pair $pair): void
     {
         $command = <<<TXT
-grep -rl {$pair->first()} . --exclude={$fullInstallerFilePath} --exclude-dir=.idea \
+grep -rl '{$pair->first()}' . --exclude='{$fullInstallerFilePath}' --exclude-dir='.idea' \
 | xargs sed -i '' -e 's/{$pair->first()}/{$pair->second()}/g'
 TXT;
         $this->system->exec($command);
@@ -178,5 +180,24 @@ TXT;
             $this->system->exec("rm {$path}");
             $this->printer->info("File {$path} removed successfully.");
         }
+    }
+
+    private function updateEntryPointExample(InputCollection $inputs): void
+    {
+        // Test class
+        $from = sprintf('./tests/Unit/%sTest.php', self::DEFAULT_PROJECT_NAME);
+        $to = sprintf('./tests/Unit/%sTest.php', $inputs->projectName()->second());
+        $this->rename($from, $to);
+
+        // Logic class
+        $from = sprintf('./src/%s.php', self::DEFAULT_PROJECT_NAME);
+        $to = sprintf('./src/%s.php', $inputs->projectName()->second());
+        $this->rename($from, $to);
+    }
+
+    private function rename(string $from, string $to): void
+    {
+        $command = "mv {$from} {$to}";
+        $this->system->exec($command);
     }
 }

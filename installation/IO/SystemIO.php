@@ -6,6 +6,10 @@ final class SystemIO implements SystemInterface
 {
     public function exec(string $command): void
     {
+        if (INSTALLER_DEBUG_ENABLE) {
+            echo "# DEBUG: {$command}" . PHP_EOL;
+        }
+
         exec($command);
     }
 
