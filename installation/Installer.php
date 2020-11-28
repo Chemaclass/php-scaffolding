@@ -38,15 +38,14 @@ final class Installer
         }
 
         $this->updateEntryPointExample($inputs);
-        $this->replaceName($fullInstallerFilePath, self::PROJECT, $inputs->projectName());
-        $this->replaceName($fullInstallerFilePath, self::CONTAINER, $inputs->containerName());
+        $this->replaceName(self::PROJECT, $inputs->projectName());
+        $this->replaceName(self::CONTAINER, $inputs->containerName());
 
         $this->installComposerDependencies($inputs);
         $this->createRelatedFiles();
 
         $promptAfterInstallation = $this->system->fileGetContents('./installation/prompt-after-installation.txt');
         $this->removeUnrelatedFiles($fullInstallerFilePath);
-        $this->replaceName($fullInstallerFilePath, self::PROJECT, $inputs->projectName());
         $this->prepareGitRelatedFiles($fullInstallerFilePath);
 
         $this->printer->success("Project '{$inputs->projectName()->second()}' set-up successfully.");
@@ -102,11 +101,11 @@ final class Installer
         return !empty($input) ? $input : $defaultName;
     }
 
-    private function replaceName(string $fullInstallerFilePath, string $what, Pair $pair): void
+    private function replaceName(string $what, Pair $pair): void
     {
         $command = <<<TXT
-grep -rl '{$pair->first()}' . --exclude='{$fullInstallerFilePath}' --exclude-dir='.idea' \
-| xargs sed -i '' -e 's/{$pair->first()}/{$pair->second()}/g'
+grep -rl '{$pair->first()}' . --exclude={Installer.php} --exclude-dir={.idea}  \
+| LC_CTYPE=C xargs sed -i '' -e 's/{$pair->first()}/{$pair->second()}/g'
 TXT;
         $this->system->exec($command);
         $this->printer->info("$what name replaced successfully (from {$pair->first()} to {$pair->second()}).");
