@@ -54,7 +54,6 @@ composer test-quality # run psalm
 composer test-unit    # run phpunit
 
 composer psalm  # run Psalm coverage
-composer csfix  # run the code fixer (`.php_cs`)
 ```
 
 ## Git hooks
@@ -71,10 +70,6 @@ ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
 ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
 ```
 
-## Contributions
-
-Feel free to open any PR with your ideas, suggestions or improvements.
-
 ### Installing this repository locally
 
 ```bash
@@ -82,3 +77,9 @@ docker-compose up -d
 docker-compose exec php_scaffolding composer install
 docker exec -ti -u dev php_scaffolding bash
 ```
+
+## Contributions
+
+Feel free to open any PR with your ideas, suggestions or improvements.
+
+Or contact me directly via [Twitter](https://twitter.com/Chemaclass).

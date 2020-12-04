@@ -2,14 +2,15 @@
 
 [![MIT Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
 
-This is a scaffolding for PHP projects using Docker. In this repository you will find:
+In this repository you will find:
 
-* Latest `PHP` (currently [7.4](https://en.wikipedia.org/wiki/PHP#Release_history))
-* Latest `PHPUnit` (currently [9](https://phpunit.de/announcements/phpunit-9.html))
-* PHP style checker (from [FriendsOfPHP](https://github.com/FriendsOfPHP/PHP-CS-Fixer))
-* Psalm static analysis tool (from [Vimeo](https://github.com/vimeo/psalm))
-* Basic dockerfile ready to use from your `docker-compose.yml`
-* Basic structure to start coding in `src` and `tests`
+* Latest `PHP` (currently [8.0](https://en.wikipedia.org/wiki/PHP#Release_history)) <- the language
+* Latest `Composer` (currently [2.0](https://getcomposer.org/)) <- the package manager
+* Latest `PHPUnit` (currently [9](https://phpunit.de/announcements/phpunit-9.html)) <- the tester 
+* Latest `XDebug` (currently [3](https://xdebug.org/docs/)) <- the debugger
+* Latest `Psalm` (currently [4](https://github.com/vimeo/psalm)) <- the static analysis tool
+* Basic `Dockerfile` ready to use from your `docker-compose.yml` <- the foundation
+* Basic structure ready to start coding in `src` and `tests` <- your logic; your design
 
 ## Installing dependencies
 
@@ -26,7 +27,7 @@ You can go inside the docker container:
 docker exec -ti -u dev php_scaffolding bash
 ```
 
-## Composer Scripts
+## Some composer scripts
 
 ```bash
 composer test-all     # run test-quality and test-unit
@@ -34,5 +35,8 @@ composer test-quality # run psalm
 composer test-unit    # run phpunit
 
 composer psalm  # run Psalm coverage
-composer csfix  # run the code fixer (`.php_cs`)
 ```
+
+----------
+
+More info about this scaffolding -> https://github.com/Chemaclass/PhpScaffolding
