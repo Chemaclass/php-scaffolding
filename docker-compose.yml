@@ -4,10 +4,10 @@ services:
   php_scaffolding:
     build:
       context: .
-      dockerfile: devops/dev/php74.dockerfile
+      dockerfile: devops/dev/php.dockerfile
     container_name: php_scaffolding
     hostname: php
     volumes:
       - .:/srv/PhpScaffolding:delegated
-    ports:
-      - 8080:8080
+#    ports:
+#      - 8123:8080

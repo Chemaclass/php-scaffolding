@@ -4,8 +4,10 @@
 
 This is a scaffolding for PHP projects using Docker. In this repository you will find:
 
-* Latest `PHP` (currently [7.4](https://en.wikipedia.org/wiki/PHP#Release_history))
+* Latest `PHP` (currently [8.0](https://en.wikipedia.org/wiki/PHP#Release_history))
+* Latest `Composer` (currently [2.0](https://getcomposer.org/))
 * Latest `PHPUnit` (currently [9](https://phpunit.de/announcements/phpunit-9.html))
+* Latest `XDebug` (currently [3](https://xdebug.org/docs/))
 * PHP style checker (from [FriendsOfPHP](https://github.com/FriendsOfPHP/PHP-CS-Fixer))
 * Psalm static analysis tool (from [Vimeo](https://github.com/vimeo/psalm))
 * Basic dockerfile ready to use from your `docker-compose.yml`
@@ -43,7 +45,7 @@ If you want to go inside the docker container:
 docker exec -ti -u dev your_project_name bash
 ```
 
-## Composer Scripts
+## Some composer scripts
 
 ```bash
 composer test-all     # run test-quality and test-unit
@@ -61,7 +63,7 @@ There are some git hooks
 * `./tools/scripts/git-hooks/pre-commit.sh`
 * `./tools/scripts/git-hooks/pre-push.sh`
 
-In order to create a soft-symlink:
+that they will be linked as soft-symlinks:
 
 ```bash
 ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
@@ -72,7 +74,7 @@ ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
 
 Feel free to open any PR with your ideas, suggestions or improvements.
 
-### Installing it locally
+### Installing this repository locally
 
 ```bash
 docker-compose up -d
