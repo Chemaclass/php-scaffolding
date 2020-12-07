@@ -6,7 +6,8 @@ This is a scaffolding for PHP projects using Docker.
 
 In this repository you will find:
 
-* Latest `PHP` (currently [8.0](https://en.wikipedia.org/wiki/PHP#Release_history)) <- the language
+* Almost-Latest `PHP` ([7.4](https://en.wikipedia.org/wiki/PHP#Release_history)) <- the language
+  - PHP 8.0 Support WIP
 * Latest `Composer` (currently [2.0](https://getcomposer.org/)) <- the package manager
 * Latest `PHPUnit` (currently [9](https://phpunit.de/announcements/phpunit-9.html)) <- the tester 
 * Latest `XDebug` (currently [3](https://xdebug.org/docs/)) <- the debugger

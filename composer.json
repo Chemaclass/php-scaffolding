@@ -8,13 +8,14 @@
         "scaffolding"
     ],
     "require": {
-        "php": ">=8.0"
+        "php": ">=7.4"
     },
     "require-dev": {
         "ext-readline": "*",
         "symfony/var-dumper": "^5.2",
         "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^4.3"
+        "vimeo/psalm": "^4.3",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "autoload": {
         "psr-4": {
@@ -35,6 +36,7 @@
             "@psalm"
         ],
         "test-unit": "./vendor/bin/phpunit",
-        "psalm": "./vendor/bin/psalm"
+        "psalm": "./vendor/bin/psalm",
+        "csfix": "vendor/bin/php-cs-fixer fix"
     }
 }
