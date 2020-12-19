@@ -12,6 +12,9 @@ projectNameSnakeCase=$(echo $projectName \
 git clone https://github.com/Chemaclass/PhpScaffolding $projectName
 cd $projectName/
 rm -rf .git
+rm CNAME
+rm _config.yml
+rm LICENSE.md
 
 find . -type f -exec \
   sed -i '' "s/PhpScaffolding/$projectName/g" {} +
@@ -19,8 +22,7 @@ find . -type f -exec \
 find . -type f -exec \
   sed -i '' "s/php_scaffolding/$projectNameSnakeCase/g" {} +
 
-git init
-docker-compose up --build --remove-orphans -d
+docker-compose up --build -d --remove-orphans
 docker-compose exec -u dev $projectNameSnakeCase composer install
 
 echo 'Installation successfully. '
