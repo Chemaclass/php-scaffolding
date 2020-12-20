@@ -15,12 +15,12 @@ In this repository you will find:
 * Basic `Dockerfile` ready to use from your `docker-compose.yml` <- the foundation
 * Basic structure ready to start coding in `src` and `tests` <- your logic; your design
 
-## Installation
+## Setup
 
 ```bash
-curl -sS https://raw.githubusercontent.com/Chemaclass/PhpScaffolding/master/installation.sh > installation.sh
-bash installation.sh YourNewProjectName
-rm installation.sh
+curl -sS https://raw.githubusercontent.com/Chemaclass/PhpScaffolding/master/setup.sh > setup.sh
+bash setup.sh YourNewProjectName
+rm setup.sh
 ```
 
 ### Getting the bash from your project

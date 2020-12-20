@@ -39,4 +39,4 @@ docker-compose up --build -d
 docker-compose exec -u dev $containerName composer install
 docker-compose exec -u dev $containerName composer test-all
 
-echo 'Installation successfully. '
+echo 'Setup successfully. '
