@@ -18,9 +18,6 @@ rm _config.yml
 rm LICENSE.md
 
 # Replace project and container names
-mv src/PhpScaffolding.php src/${projectName}.php
-mv tests/Unit/PhpScaffoldingTest.php tests/Unit/${projectName}Test.php
-
 find . -type f -exec \
   sed -i '' -e "s/PhpScaffolding/$projectName/g" {} +
 find . -type f -exec \

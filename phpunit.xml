@@ -5,8 +5,8 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.3/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         testdox="true"
          convertErrorsToExceptions="true"
+         testdox="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -17,4 +17,10 @@
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
 </phpunit>
