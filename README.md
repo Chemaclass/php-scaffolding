@@ -17,11 +17,10 @@ In this repository you will find:
 
 ## Installation
 
-Using the installer
-
 ```bash
-curl -sS https://raw.githubusercontent.com/Chemaclass/PhpScaffolding/master/installation.sh > installation.sh \
-  && bash installation.sh
+curl -sS https://raw.githubusercontent.com/Chemaclass/PhpScaffolding/master/installation.sh > installation.sh
+bash installation.sh YourNewProjectName
+rm installation.sh
 ```
 
 ### Getting the bash from your project
@@ -50,15 +49,16 @@ ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
 ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
 ```
 
-### Installing this repository locally
+## Contributions
+
+Installing this repository locally
 
 ```bash
 docker-compose up -d
 docker-compose exec php_scaffolding composer install
+docker-compose exec -u dev php_scaffolding composer test-all
 docker exec -ti -u dev php_scaffolding bash
 ```
-
-## Contributions
 
 Feel free to open any PR with your ideas, suggestions or improvements.
 
