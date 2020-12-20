@@ -15,33 +15,15 @@ In this repository you will find:
 * Basic `Dockerfile` ready to use from your `docker-compose.yml` <- the foundation
 * Basic structure ready to start coding in `src` and `tests` <- your logic; your design
 
-## Custom Installation
-
-### Clone this repository
-
-> git clone https://github.com/Chemaclass/PhpScaffolding YourProjectName
-
-#### Using the installer script to set-up the new project (recommended)
-
-To run the installation script you will need to have a `PHP 7.1+` in your local machine:
-
-> php install.php
-
-Using the installer script `install` (in PHP) it will replace the Project & Container names
-to customized values and prepare everything you need to start working in your project.
-
-#### Installing the dependencies manually
-
-To set up the container and install the composer dependencies:
+## Installation
 
 ```bash
-docker-compose up -d
-docker-compose exec your_project_name composer install
+curl -sS https://raw.githubusercontent.com/Chemaclass/PhpScaffolding/master/installation.sh > installation.sh
+bash installation.sh YourNewProjectName
+rm installation.sh
 ```
 
 ### Getting the bash from your project
-
-If you want to go inside the docker container:
 
 ```bash
 docker exec -ti -u dev your_project_name bash
@@ -59,27 +41,24 @@ composer psalm  # run Psalm coverage
 
 ## Git hooks
 
-There are some git hooks
-
 * `./tools/scripts/git-hooks/pre-commit.sh`
 * `./tools/scripts/git-hooks/pre-push.sh`
-
-that they will be linked as soft-symlinks:
 
 ```bash
 ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
 ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
 ```
 
-### Installing this repository locally
+## Contributions
+
+Installing this repository locally
 
 ```bash
 docker-compose up -d
 docker-compose exec php_scaffolding composer install
+docker-compose exec -u dev php_scaffolding composer test-all
 docker exec -ti -u dev php_scaffolding bash
 ```
-
-## Contributions
 
 Feel free to open any PR with your ideas, suggestions or improvements.
 

@@ -1,2 +1,0 @@
-You can go inside the docker container:
-> docker exec -ti -u dev php_scaffolding bash
