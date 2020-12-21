@@ -2,18 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\ExampleModule\Domain;
 
-use function array_reduce;
-
-/**
- * This is an example of your logic-entry-point.
- *
- * @psalm-immutable
- */
-final class PhpScaffolding
+final class Adder implements AdderInterface
 {
-    public static function sum(int ...$numbers): int
+    public function add(int ...$numbers): int
     {
         return array_reduce(
             $numbers,
