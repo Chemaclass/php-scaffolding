@@ -1,16 +1,15 @@
-
 set -u
 
 echo 'Installing the PhpScaffolding ...'
 
 projectName=${1:-NewProject}
-containerName=$(echo $projectName \
+containerName=$(echo "$projectName" \
 | sed 's/\([^A-Z]\)\([A-Z0-9]\)/\1_\2/g' \
 | sed 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1_\2\3/g' \
 | tr '[:upper:]' '[:lower:]')
 
-git clone https://github.com/Chemaclass/PhpScaffolding $projectName
-cd $projectName
+git clone https://github.com/Chemaclass/PhpScaffolding "$projectName"
+cd "$projectName" || exit
 
 # Remove all unrelated files
 rm CNAME
@@ -33,7 +32,7 @@ git commit -m 'Scaffolding ready'
 
 # Build and install all dependencies
 docker-compose up --build -d
-docker-compose exec -u dev $containerName composer install
-docker-compose exec -u dev $containerName composer test-all
+docker-compose exec -u dev "$containerName" composer install
+docker-compose exec -u dev "$containerName" composer test-all
 
-echo 'Setup successfully. '
+echo 'Setup successfully.'
