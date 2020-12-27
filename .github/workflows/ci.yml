@@ -18,14 +18,14 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
           coverage: none
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run friendsofphp/php-cs-fixer
-        run: ./vendor/bin/php-cs-fixer fix --diff-format=udiff --dry-run --show-progress=dots --using-cache=no --verbose
+        run: PHP_CS_FIXER_IGNORE_ENV=true ./vendor/bin/php-cs-fixer fix --diff-format=udiff --dry-run --show-progress=dots --using-cache=no --verbose
 
   type-checker:
     name: Type Checker
@@ -39,7 +39,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
           coverage: none
 
       - name: Install dependencies
@@ -60,7 +60,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
           coverage: xdebug
 
       - name: Install dependencies

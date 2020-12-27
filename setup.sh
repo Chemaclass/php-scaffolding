@@ -1,6 +1,6 @@
 set -u
 
-echo 'Installing the PhpScaffolding ...'
+echo 'Installing the php-scaffolding ...'
 
 projectName=${1:-NewProject}
 containerName=$(echo "$projectName" \
@@ -8,7 +8,7 @@ containerName=$(echo "$projectName" \
 | sed 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1_\2\3/g' \
 | tr '[:upper:]' '[:lower:]')
 
-git clone https://github.com/Chemaclass/PhpScaffolding "$projectName"
+git clone https://github.com/Chemaclass/php-scaffolding "$projectName"
 cd "$projectName" || exit
 
 # Remove all unrelated files
@@ -18,7 +18,7 @@ rm LICENSE.md
 
 # Replace project and container names
 find . -type f -exec \
-  sed -i '' -e "s/PhpScaffolding/$projectName/g" {} +
+  sed -i '' -e "s/php-scaffolding/$projectName/g" {} +
 find . -type f -exec \
   sed -i '' -e "s/php_scaffolding/$containerName/g" {} +
 

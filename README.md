@@ -17,7 +17,7 @@ In this repository you will find:
 ## Setup
 
 ```bash
-curl -sS https://raw.githubusercontent.com/Chemaclass/PhpScaffolding/master/setup.sh > setup.sh
+curl -sS https://raw.githubusercontent.com/Chemaclass/php-scaffolding/master/setup.sh > setup.sh
 bash setup.sh YourNewProjectName
 rm setup.sh
 ```
@@ -31,10 +31,11 @@ docker exec -ti -u dev your_project_name bash
 ## Some composer scripts
 
 ```bash
-composer test-all     # run test-quality and test-unit
-composer test-quality # run psalm
+composer test-all     # run test-quality & test-unit
+composer test-quality # run csrun & psalm
 composer test-unit    # run phpunit
 
+composer csrun  # check code style
 composer psalm  # run Psalm coverage
 ```
 

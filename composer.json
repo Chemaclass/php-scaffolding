@@ -8,7 +8,7 @@
         "scaffolding"
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.2",
@@ -32,12 +32,13 @@
             "@test-unit"
         ],
         "test-quality": [
+            "@csrun",
             "@psalm"
         ],
         "test-unit": "./vendor/bin/phpunit",
         "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage",
         "psalm": "./vendor/bin/psalm",
-        "csfix": "vendor/bin/php-cs-fixer fix",
-        "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"
+        "csfix": "PHP_CS_FIXER_IGNORE_ENV=true ./vendor/bin/php-cs-fixer fix",
+        "csrun": "PHP_CS_FIXER_IGNORE_ENV=true ./vendor/bin/php-cs-fixer fix --dry-run"
     }
 }

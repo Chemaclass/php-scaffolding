@@ -4,8 +4,8 @@ services:
   php_scaffolding:
     build:
       context: .
-      dockerfile: devops/dev/php.dockerfile
+      dockerfile: build/php.dockerfile
     container_name: php_scaffolding
     hostname: php
     volumes:
-      - .:/srv/PhpScaffolding:delegated
+      - .:/srv/php-scaffolding:delegated
