@@ -6,21 +6,45 @@ namespace Tests\Unit\ExampleModule;
 
 use App\ExampleModule\ExampleModuleFacade;
 use App\ExampleModule\ExampleModuleFactory;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 final class ExampleModuleFacadeTest extends TestCase
 {
-    /** @test */
-    public function itCanAdd(): void
+    /**
+     * @test
+     *
+     * @dataProvider adderDataProvider
+     */
+    public function itCanAdd(int $expected, array $numbers): void
     {
         $facade = new ExampleModuleFacade(
             new ExampleModuleFactory()
         );
 
-        self::assertSame(0, $facade->add());
-        self::assertSame(1, $facade->add(1));
-        self::assertSame(3, $facade->add(1, 2));
-        self::assertSame(6, $facade->add(1, 2, 3));
-        self::assertSame(10, $facade->add(1, 2, 3, 4));
+        self::assertSame($expected, $facade->add(...$numbers));
+    }
+
+    public function adderDataProvider(): Generator
+    {
+        yield 'when no numbers, the result is zero' => [
+            'expected' => 0,
+            'numbers' => [],
+        ];
+
+        yield 'when a single number, the result is the same number' => [
+            'expected' => 1,
+            'numbers' => [1],
+        ];
+
+        yield 'when two numbers, the result is the sum of both' => [
+            'expected' => 3,
+            'numbers' => [1, 2],
+        ];
+
+        yield 'when multiple numbers, the result is the sum of all of them' => [
+            'expected' => 10,
+            'numbers' => [1, 2, 3, 4],
+        ];
     }
 }
