@@ -3,8 +3,7 @@ version: "3.8"
 services:
   php_scaffolding:
     build:
-      context: .
-      dockerfile: build/php.dockerfile
+      context: build
     container_name: php_scaffolding
     hostname: php
     volumes:
