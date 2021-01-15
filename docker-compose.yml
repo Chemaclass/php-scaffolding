@@ -4,7 +4,7 @@ services:
   php_scaffolding:
     build:
       context: .
-      dockerfile: build/php.dockerfile
+      dockerfile: build/Dockerfile
     container_name: php_scaffolding
     hostname: php
     volumes:
