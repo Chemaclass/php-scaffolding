@@ -14,7 +14,7 @@
         "symfony/var-dumper": "^5.2",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.3",
-        "friendsofphp/php-cs-fixer": "^2.17"
+        "friendsofphp/php-cs-fixer": "^2.18"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +38,7 @@
         "test-unit": "./vendor/bin/phpunit",
         "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage",
         "psalm": "./vendor/bin/psalm",
-        "csfix": "PHP_CS_FIXER_IGNORE_ENV=true ./vendor/bin/php-cs-fixer fix",
-        "csrun": "PHP_CS_FIXER_IGNORE_ENV=true ./vendor/bin/php-cs-fixer fix --dry-run"
+        "csfix": "./vendor/bin/php-cs-fixer fix",
+        "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"
     }
 }
