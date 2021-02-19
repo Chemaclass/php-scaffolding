@@ -22,13 +22,13 @@ bash setup.sh YourNewProjectName
 rm setup.sh
 ```
 
-### Getting the bash from your project
+#### Getting the bash from your project
 
 ```bash
 docker exec -ti -u dev your_project_name bash
 ```
 
-## Some composer scripts
+#### Some composer scripts
 
 ```bash
 composer test-all     # run test-quality & test-unit
@@ -39,10 +39,12 @@ composer csrun  # check code style
 composer psalm  # run Psalm coverage
 ```
 
-## Git hooks
+### Git hooks
 
 * `./tools/scripts/git-hooks/pre-commit.sh`
 * `./tools/scripts/git-hooks/pre-push.sh`
+
+#### Installation
 
 ```bash
 ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
