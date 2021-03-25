@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\ExampleModule;
+namespace Tests\Unit\ExampleModule\Domain;
 
-use App\ExampleModule\ExampleModuleFacade;
+use App\ExampleModule\Domain\Adder;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-final class ExampleModuleFacadeTest extends TestCase
+final class AdderTest extends TestCase
 {
     /**
-     * @dataProvider adderDataProvider
+     * @dataProvider providerAdd
      */
     public function testItCanAdd(int $expected, array $numbers): void
     {
-        $facade = new ExampleModuleFacade();
+        $facade = new Adder();
 
         self::assertSame($expected, $facade->add(...$numbers));
     }
 
-    public function adderDataProvider(): Generator
+    public function providerAdd(): Generator
     {
         yield 'when no numbers, the result is zero' => [
             'expected' => 0,

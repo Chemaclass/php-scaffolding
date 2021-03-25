@@ -6,13 +6,13 @@ This is a scaffolding for PHP projects using Docker.
 
 In this repository you will find:
 
-* Latest `PHP` (LTS) ([7.4](https://en.wikipedia.org/wiki/PHP#Release_history)) ← the language
-* Latest `Composer` (currently [2.0](https://getcomposer.org/)) ← the package manager
-* Latest `PHPUnit` (currently [9](https://phpunit.de/announcements/phpunit-9.html)) ← the tester 
-* Latest `XDebug` (currently [3](https://xdebug.org/docs/)) ← the debugger
-* Latest `Psalm` (currently [4](https://github.com/vimeo/psalm)) ← the static analysis tool
-* A basic `Dockerfile` ready to use from your `docker-compose.yml` ← the foundation
-* Basic structure ready to start coding in `src` and `tests` ← your logic; your design
+* `PHP` ([7.4](https://en.wikipedia.org/wiki/PHP#Release_history))
+* `Composer` (currently [2.0](https://getcomposer.org/))
+* `PHPUnit` (currently [9](https://phpunit.de/announcements/phpunit-9.html)) 
+* `XDebug` (currently [3](https://xdebug.org/docs/))
+* `Psalm` (currently [4](https://github.com/vimeo/psalm))
+* A basic `Dockerfile` ready to use from your `docker-compose.yml`
+* Basic structure ready to start coding in `src` and `tests`
 
 ## Setup
 
