@@ -5,22 +5,17 @@ declare(strict_types=1);
 namespace Tests\Unit\ExampleModule;
 
 use App\ExampleModule\ExampleModuleFacade;
-use App\ExampleModule\ExampleModuleFactory;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 final class ExampleModuleFacadeTest extends TestCase
 {
     /**
-     * @test
-     *
      * @dataProvider adderDataProvider
      */
-    public function itCanAdd(int $expected, array $numbers): void
+    public function testItCanAdd(int $expected, array $numbers): void
     {
-        $facade = new ExampleModuleFacade(
-            new ExampleModuleFactory()
-        );
+        $facade = new ExampleModuleFacade();
 
         self::assertSame($expected, $facade->add(...$numbers));
     }

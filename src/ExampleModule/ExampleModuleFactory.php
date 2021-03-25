@@ -6,8 +6,9 @@ namespace App\ExampleModule;
 
 use App\ExampleModule\Domain\Adder;
 use App\ExampleModule\Domain\AdderInterface;
+use Gacela\AbstractFactory;
 
-final class ExampleModuleFactory implements ExampleModuleFactoryInterface
+final class ExampleModuleFactory extends AbstractFactory
 {
     public function createAdder(): AdderInterface
     {

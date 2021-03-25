@@ -4,8 +4,65 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4fdc157fc8336621d9c276491b3cd777",
-    "packages": [],
+    "content-hash": "16dbc5ad3d40e4047b10a07693918960",
+    "packages": [
+        {
+            "name": "chemaclass/gacela",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Chemaclass/gacela.git",
+                "reference": "188f9784b93fcf38d33955763bdbea6a8d55baeb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Chemaclass/gacela/zipball/188f9784b93fcf38d33955763bdbea6a8d55baeb",
+                "reference": "188f9784b93fcf38d33955763bdbea6a8d55baeb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "^5.2",
+                "vimeo/psalm": "^4.6"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gacela\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jose Maria Valera Reales",
+                    "email": "chemaclass@outlook.es"
+                },
+                {
+                    "name": "Jesus Valera Reales",
+                    "email": "jesus1902@outlook.com"
+                }
+            ],
+            "description": "Gacela Framework",
+            "keywords": [
+                "kernel",
+                "modular",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/Chemaclass/gacela/issues",
+                "source": "https://github.com/Chemaclass/gacela/tree/master"
+            },
+            "time": "2021-03-22T07:32:00+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "amphp/amp",
@@ -4776,7 +4833,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "chemaclass/gacela": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
