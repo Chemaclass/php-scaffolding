@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16dbc5ad3d40e4047b10a07693918960",
+    "content-hash": "a32070c3137ebfecd131cf5ead64ebbc",
     "packages": [
         {
-            "name": "chemaclass/gacela",
+            "name": "gacela-project/gacela",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gacela-project/gacela.git",
-                "reference": "f6ec328549ba7662801d4e33a59e2cb7cdd4c5a5"
+                "reference": "13c299db223b9b90c626da5f0891b0810f5fd4c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gacela-project/gacela/zipball/f6ec328549ba7662801d4e33a59e2cb7cdd4c5a5",
-                "reference": "f6ec328549ba7662801d4e33a59e2cb7cdd4c5a5",
+                "url": "https://api.github.com/repos/gacela-project/gacela/zipball/13c299db223b9b90c626da5f0891b0810f5fd4c3",
+                "reference": "13c299db223b9b90c626da5f0891b0810f5fd4c3",
                 "shasum": ""
             },
             "require": {
@@ -63,8 +63,7 @@
                 "issues": "https://github.com/gacela-project/gacela/issues",
                 "source": "https://github.com/gacela-project/gacela/tree/master"
             },
-            "abandoned": "gacela-project/gacela",
-            "time": "2021-04-05T11:05:03+00:00"
+            "time": "2021-04-15T06:06:14+00:00"
         }
     ],
     "packages-dev": [
@@ -4846,7 +4845,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "chemaclass/gacela": 20
+        "gacela-project/gacela": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

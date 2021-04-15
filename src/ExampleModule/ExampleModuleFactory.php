@@ -6,7 +6,7 @@ namespace App\ExampleModule;
 
 use App\ExampleModule\Domain\Adder;
 use App\ExampleModule\Domain\AdderInterface;
-use Gacela\AbstractFactory;
+use Gacela\Framework\AbstractFactory;
 
 final class ExampleModuleFactory extends AbstractFactory
 {

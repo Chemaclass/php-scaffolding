@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ExampleModule;
 
-use Gacela\AbstractFacade;
+use Gacela\Framework\AbstractFacade;
 
 /**
  * @method ExampleModuleFactory getFactory()

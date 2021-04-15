@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "chemaclass/gacela": "dev-master"
+        "gacela-project/gacela": "dev-master"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.2",
