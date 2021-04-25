@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gacela-project/gacela.git",
-                "reference": "261c55aa791d5a4532fb809b25cca40950661430"
+                "reference": "3d9da80e8335dbce0192331bb4a89160864b2e54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gacela-project/gacela/zipball/261c55aa791d5a4532fb809b25cca40950661430",
-                "reference": "261c55aa791d5a4532fb809b25cca40950661430",
+                "url": "https://api.github.com/repos/gacela-project/gacela/zipball/3d9da80e8335dbce0192331bb4a89160864b2e54",
+                "reference": "3d9da80e8335dbce0192331bb4a89160864b2e54",
                 "shasum": ""
             },
             "require": {
@@ -64,7 +64,7 @@
                 "issues": "https://github.com/gacela-project/gacela/issues",
                 "source": "https://github.com/gacela-project/gacela/tree/master"
             },
-            "time": "2021-04-25T08:06:51+00:00"
+            "time": "2021-04-25T14:40:26+00:00"
         }
     ],
     "packages-dev": [
