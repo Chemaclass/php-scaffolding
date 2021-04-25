@@ -7,9 +7,9 @@ namespace App\ExampleModule;
 use Gacela\Framework\AbstractFacade;
 
 /**
- * @method ExampleModuleFactory getFactory()
+ * @method Factory getFactory()
  */
-final class ExampleModuleFacade extends AbstractFacade
+final class Facade extends AbstractFacade
 {
     public function add(int ...$numbers): int
     {

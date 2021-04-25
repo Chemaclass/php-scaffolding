@@ -6,8 +6,15 @@ namespace App\ExampleModule\Domain;
 
 final class Adder implements AdderInterface
 {
+    private int $baseAdderNumber;
+
+    public function __construct(int $baseAdderNumber = 0)
+    {
+        $this->baseAdderNumber = $baseAdderNumber;
+    }
+
     public function add(int ...$numbers): int
     {
-        return array_sum($numbers);
+        return $this->baseAdderNumber + array_sum($numbers);
     }
 }

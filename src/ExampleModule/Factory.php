@@ -8,10 +8,15 @@ use App\ExampleModule\Domain\Adder;
 use App\ExampleModule\Domain\AdderInterface;
 use Gacela\Framework\AbstractFactory;
 
-final class ExampleModuleFactory extends AbstractFactory
+/**
+ * @method Config getConfig()
+ */
+final class Factory extends AbstractFactory
 {
     public function createAdder(): AdderInterface
     {
-        return new Adder();
+        return new Adder(
+            $this->getConfig()->getBaseAdderNumber()
+        );
     }
 }

@@ -1,8 +1,7 @@
 {
-    "description": "A basic PHP scaffolding with Docker",
+    "description": "A basic PHP scaffolding",
     "name": "chemaclass/php-scaffolding",
     "type": "project",
-    "homepage": "https://php-scaffolding.chemaclass.com/",
     "license": "MIT",
     "keywords": [
         "php",
@@ -13,6 +12,7 @@
         "gacela-project/gacela": "dev-master"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "symfony/var-dumper": "^5.2",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.6",
