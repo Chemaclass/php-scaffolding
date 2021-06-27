@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
     ->in('example/')
     ->in('src/')
-    ->in('tests/')
-;
+    ->in('tests/');
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
     ->setFinder($finder)
@@ -39,19 +40,22 @@ return PhpCsFixer\Config::create()
         ],
         'braces' => true,
         'cast_spaces' => true,
-        'class_attributes_separation' => ['elements' => ['const', 'method', 'property']],
+        'class_attributes_separation' => ['elements' => ['const' => 'one', 'method' => 'one', 'property' => 'one']],
         'class_definition' => true,
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'compact_nullable_typehint' => true,
         'concat_space' => ['spacing' => 'one'],
+        'constant_case' => true,
         'declare_equal_normalize' => ['space' => 'none'],
         'fully_qualified_strict_types' => true,
         'dir_constant' => true,
+        'echo_tag_syntax' => true,
         'elseif' => true,
         'encoding' => true,
         'ereg_to_preg' => true,
         'full_opening_tag' => true,
+        'general_phpdoc_annotation_remove' => ['annotations' => ['expectedDeprecation']],
         'linebreak_after_opening_tag' => true,
         'function_declaration' => true,
         'indentation_type' => true,
@@ -60,11 +64,10 @@ return PhpCsFixer\Config::create()
         'list_syntax' => ['syntax' => 'short'],
         'logical_operators' => true,
         'lowercase_cast' => true,
-        'lowercase_constants' => true,
         'lowercase_keywords' => true,
         'lowercase_static_reference' => true,
         'magic_constant_casing' => true,
-        'method_argument_space' => ['ensure_fully_multiline' => true],
+        'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
         'modernize_types_casting' => true,
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => true,
@@ -91,7 +94,6 @@ return PhpCsFixer\Config::create()
         'no_null_property_initialization' => true,
         'no_php4_constructor' => true,
         'no_short_bool_cast' => true,
-        'no_short_echo_tag' => true,
         'no_singleline_whitespace_before_semicolons' => true,
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => true,
@@ -181,7 +183,7 @@ return PhpCsFixer\Config::create()
         'switch_case_space' => true,
         'ternary_to_null_coalescing' => true,
         'ternary_operator_spaces' => true,
-        'trailing_comma_in_multiline_array' => true,
+        'trailing_comma_in_multiline' => true,
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
         'visibility_required' => [
@@ -194,5 +196,4 @@ return PhpCsFixer\Config::create()
         'void_return' => true,
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => true,
-    ])
-;
+    ]);
