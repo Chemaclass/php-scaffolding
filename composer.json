@@ -8,15 +8,14 @@
         "scaffolding"
     ],
     "require": {
-        "php": ">=7.4",
-        "gacela-project/gacela": "dev-master"
+        "php": ">=7.4"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "symfony/var-dumper": "^5.2",
         "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^4.6",
-        "friendsofphp/php-cs-fixer": "^2.18"
+        "vimeo/psalm": "^4.8",
+        "friendsofphp/php-cs-fixer": "^2.19"
     },
     "autoload": {
         "psr-4": {
