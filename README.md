@@ -7,9 +7,9 @@ This is a scaffolding for PHP projects. A basic structure ready to start coding 
 ### Some composer scripts
 
 ```bash
-composer test-all     # run test-quality & test-unit
+composer test-all     # run test-quality & test-phpunit
 composer test-quality # run csrun & psalm
-composer test-unit    # run phpunit
+composer test-phpunit # run phpunit
 
 composer csrun  # check code style
 composer psalm  # run Psalm coverage
@@ -17,14 +17,10 @@ composer psalm  # run Psalm coverage
 
 ### Git hooks
 
-* `pre-commit.sh`
-* `pre-push.sh`
-
-#### Installation
+Install the pre-commit hook running:
 
 ```bash
-ln -s tools/scripts/git-hooks/pre-commit.sh .git/hooks/pre-commit
-ln -s tools/scripts/git-hooks/pre-push.sh .git/hooks/pre-push
+./tools/git-hooks/init.sh
 ```
 
 ### Contributions

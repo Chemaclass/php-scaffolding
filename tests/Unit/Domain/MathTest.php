@@ -16,15 +16,15 @@ final class MathTest extends TestCase
 {
     public function testSum(): void
     {
-        static::assertSame(0, Math::sum());
-        static::assertSame(1, Math::sum(1));
-        static::assertSame(3, Math::sum(1, 2));
-        static::assertSame(6, Math::sum(1, 2, 3));
-        static::assertSame(10, Math::sum(1, 2, 3, 4));
+        self::assertSame(0, Math::sum());
+        self::assertSame(1, Math::sum(1));
+        self::assertSame(3, Math::sum(1, 2));
+        self::assertSame(6, Math::sum(1, 2, 3));
+        self::assertSame(10, Math::sum(1, 2, 3, 4));
     }
 
     public function testSub(): void
     {
-        static::assertSame(2, Math::sub(6, 4));
+        self::assertSame(2, Math::sub(6, 4));
     }
 }
