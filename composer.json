@@ -12,10 +12,10 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "symfony/var-dumper": "^5.2",
+        "symfony/var-dumper": "^5.3",
         "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^4.8",
-        "friendsofphp/php-cs-fixer": "^3.0"
+        "vimeo/psalm": "^4.11",
+        "friendsofphp/php-cs-fixer": "^3.2"
     },
     "autoload": {
         "psr-4": {

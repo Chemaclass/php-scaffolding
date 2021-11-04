@@ -7,14 +7,9 @@ namespace Tests\Unit\Domain;
 use App\Domain\Math;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \App\Domain\Math
- *
- * @internal
- */
 final class MathTest extends TestCase
 {
-    public function testSum(): void
+    public function test_sum(): void
     {
         self::assertSame(0, Math::sum());
         self::assertSame(1, Math::sum(1));
@@ -23,7 +18,7 @@ final class MathTest extends TestCase
         self::assertSame(10, Math::sum(1, 2, 3, 4));
     }
 
-    public function testSub(): void
+    public function test_sub(): void
     {
         self::assertSame(2, Math::sub(6, 4));
     }
