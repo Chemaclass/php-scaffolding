@@ -23,6 +23,14 @@ Install the pre-commit hook running:
 ./tools/git-hooks/init.sh
 ```
 
+### Basic Dockerfile
+
+If you don't have PHP in your local machine, you can simply use docker to build a docker image with `PHP 8.0`.
+
+```bash
+docker build -t php-scaffolding .
+```
+
 ### Contributions
 
 Feel free to open any PR with your ideas, suggestions or improvements.
