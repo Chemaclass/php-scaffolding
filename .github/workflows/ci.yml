@@ -11,13 +11,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
           coverage: none
+
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
+
       - name: Run friendsofphp/php-cs-fixer
         run: PHP_CS_FIXER_IGNORE_ENV=true ./vendor/bin/php-cs-fixer fix --dry-run --show-progress=dots --using-cache=no --verbose
 
@@ -34,21 +37,36 @@ jobs:
           coverage: none
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
-      - name: Run vimeo/psalm on internal code
+
+      - name: Run Psalm
         run: ./vendor/bin/psalm --config=psalm.xml --no-progress --shepherd --show-info=false --stats
 
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyze -c phpstan.neon src
+
   tests:
-    name: Tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+        php: [ '7.4', '8.0' ]
+    name: Tests on PHP ${{ matrix.php }} - ${{ matrix.operating-system }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
-          coverage: xdebug
+          php-version: ${{ matrix.php }}
+          coverage: none
+
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --no-interaction --no-ansi --no-progress
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit
+
       - name: Run tests
         run: ./vendor/bin/phpunit

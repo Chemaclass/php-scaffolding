@@ -15,6 +15,7 @@
         "symfony/var-dumper": "^5.3",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.11",
+        "phpstan/phpstan": "^1.0",
         "friendsofphp/php-cs-fixer": "^3.2"
     },
     "autoload": {
@@ -34,11 +35,13 @@
         ],
         "test-quality": [
             "@csrun",
-            "@psalm"
+            "@psalm",
+            "@phpstan"
         ],
         "test-phpunit": "./vendor/bin/phpunit",
         "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage",
         "psalm": "./vendor/bin/psalm",
+        "phpstan": "./vendor/bin/phpstan analyze -c phpstan.neon src",
         "csfix": "./vendor/bin/php-cs-fixer fix",
         "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"
     }
