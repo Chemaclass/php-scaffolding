@@ -8,11 +8,12 @@ This is a scaffolding for PHP projects. A basic structure ready to start coding 
 
 ```bash
 composer test-all     # run test-quality & test-phpunit
-composer test-quality # run csrun & psalm
+composer test-quality # run csrun & psalm & phpstan
 composer test-phpunit # run phpunit
 
-composer csrun  # check code style
-composer psalm  # run Psalm coverage
+composer csrun   # check code style
+composer psalm   # run psalm coverage
+composer phpstan # run phpstan coverage
 ```
 
 ### Git hooks
@@ -25,7 +26,7 @@ Install the pre-commit hook running:
 
 ### Basic Dockerfile
 
-If you don't have PHP in your local machine, you can simply use docker to build a docker image with `PHP 8.0`.
+If you don't have PHP in your local machine, you can use docker to build an image with `PHP 8.0`.
 
 ```bash
 docker build -t php-scaffolding .

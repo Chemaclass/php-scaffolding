@@ -7,7 +7,7 @@ namespace App\Domain;
 use function array_reduce;
 
 /**
- * This is an "domain class example".
+ * This is a "domain class example".
  *
  * @psalm-immutable
  */
@@ -18,7 +18,7 @@ final class Math
         return array_reduce(
             $numbers,
             static fn (int $carry, int $current): int => $carry + $current,
-            $initial = 0
+            initial: 0
         );
     }
 

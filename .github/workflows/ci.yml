@@ -15,7 +15,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
           coverage: none
 
       - name: Install dependencies
@@ -33,7 +33,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
           coverage: none
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
@@ -50,7 +50,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
-        php: [ '7.4', '8.0' ]
+        php: [ '8.0' ]
     name: Tests on PHP ${{ matrix.php }} - ${{ matrix.operating-system }}
     steps:
       - name: Checkout
