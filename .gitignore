@@ -1,4 +1,7 @@
-/coverage
-/vendor
-/config/local.php
+/coverage/
+/.idea/
+/.vscode/
+/vendor/
+/data/
+/.phpbench/
 *.cache

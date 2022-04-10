@@ -13,7 +13,7 @@ use function array_reduce;
  */
 final class Math
 {
-    public static function sum(int ...$numbers): int
+    public function sum(int ...$numbers): int
     {
         return array_reduce(
             $numbers,
@@ -22,7 +22,7 @@ final class Math
         );
     }
 
-    public static function sub(int $n1, int $n2): int
+    public function sub(int $n1, int $n2): int
     {
         return $n1 - $n2;
     }
