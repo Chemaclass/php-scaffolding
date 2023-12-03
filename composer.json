@@ -28,7 +28,10 @@
         }
     },
     "scripts": {
-        "test": "@test-all",
+        "test": [
+            "@static-clear-cache",
+            "@test-all"
+        ],
         "test-all": [
             "@test-quality",
             "@test-phpunit"
@@ -42,7 +45,10 @@
         "psalm": "./vendor/bin/psalm",
         "phpstan": "./vendor/bin/phpstan",
         "csfix": "./vendor/bin/php-cs-fixer fix",
-        "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"
+        "csrun": "./vendor/bin/php-cs-fixer fix --dry-run",
+        "static-clear-cache": ["@clear-cache-psalm", "@clear-cache-phpstan"],
+        "clear-cache-psalm": "XDEBUG_MODE=off vendor/bin/psalm --clear-cache",
+        "clear-cache-phpstan": "XDEBUG_MODE=off vendor/bin/phpstan clear-result-cache"
     },
     "config": {
         "platform": {
